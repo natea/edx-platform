@@ -6,6 +6,7 @@ import logging
 from uuid import uuid4
 from datetime import datetime
 from pytz import UTC
+import json
 
 from collections import OrderedDict
 from functools import partial
@@ -622,6 +623,7 @@ def create_xblock_info(xblock, data=None, metadata=None, include_ancestor_info=F
 
         return None
 
+    graders = CourseGradingModel.fetch(xblock.location.course_key).graders
     xblock_info = {
         "id": unicode(xblock.location),
         "display_name": xblock.display_name_with_default,
@@ -635,9 +637,15 @@ def create_xblock_info(xblock, data=None, metadata=None, include_ancestor_info=F
         'studio_url': xblock_studio_url(xblock),
         "released_to_students": datetime.now(UTC) > xblock.start,
         "release_date": release_date,
+        "start": xblock.fields['start'].to_json(xblock.start),
         "release_date_from": _get_release_date_from(xblock) if release_date else None,
         "visible_to_staff_only": xblock.visible_to_staff_only,
         "currently_visible_to_students": is_currently_visible_to_students(xblock),
+        "graded": xblock.graded,
+        "due_date": get_default_time_display(xblock.due),
+        "due": xblock.fields['due'].to_json(xblock.due),
+        "format": xblock.format,
+        "course_graders": json.dumps([grader.get('type') for grader in graders]),
     }
     if data is not None:
         xblock_info["data"] = data

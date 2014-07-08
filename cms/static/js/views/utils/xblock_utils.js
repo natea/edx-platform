@@ -3,7 +3,8 @@
  */
 define(["jquery", "underscore", "gettext", "js/views/utils/view_utils", "js/utils/module"],
     function($, _, gettext, ViewUtils, ModuleUtils) {
-        var addXBlock, deleteXBlock, createUpdateRequestData, updateXBlockField;
+        var addXBlock, deleteXBlock, createUpdateRequestData, updateXBlockField,
+            updateXBlockFields;
 
         /**
          * Adds an xblock based upon the data attributes of the specified add button. A promise
@@ -70,9 +71,9 @@ define(["jquery", "underscore", "gettext", "js/views/utils/view_utils", "js/util
 
         /**
          * Updates the specified field of an xblock to a new value.
-         * @param xblockInfo The XBlockInfo model representing the xblock.
-         * @param fieldName The xblock field name to be updated.
-         * @param newValue The new value for the field.
+         * @param {Backbone Model} xblockInfo The XBlockInfo model representing the xblock.
+         * @param {String} fieldName The xblock field name to be updated.
+         * @param {*} newValue The new value for the field.
          * @returns {jQuery promise} A promise representing the updating of the field.
          */
         updateXBlockField = function(xblockInfo, fieldName, newValue) {
@@ -83,9 +84,26 @@ define(["jquery", "underscore", "gettext", "js/views/utils/view_utils", "js/util
                 });
         };
 
+        /**
+         * Updates the specified fields of an xblock to a new values.
+         * @param {Backbone Model} xblockInfo The XBlockInfo model representing the xblock.
+         * @param {Object} xblockData Object representing xblock data as accepted on server.
+         * @param {Object} [options] Hash with options.
+         * @returns {jQuery promise} A promise representing the updating of the xblock values.
+         */
+        updateXBlockFields = function(xblockInfo, xblockData, options) {
+            options = _.extend({}, { patch: true }, options);
+            return ViewUtils.runOperationShowingMessage(gettext('Saving&hellip;'),
+                function() {
+                    return xblockInfo.save(xblockData, options);
+                }
+            );
+        };
+
         return {
             'addXBlock': addXBlock,
             'deleteXBlock': deleteXBlock,
-            'updateXBlockField': updateXBlockField
+            'updateXBlockField': updateXBlockField,
+            'updateXBlockFields': updateXBlockFields
         };
     });

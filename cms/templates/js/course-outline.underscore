@@ -11,7 +11,7 @@
                 <h3 class="xblock-title">
             <% } %>
 
-                <% if (xblockInfo.get('category') === 'vertical') { %>
+                <% if (xblockInfo.isVertical()) { %>
                     <a href="<%= xblockInfo.get('studio_url') %>"><%= xblockInfo.get('display_name') %></a>
                 <% } else { %>
                     <span class="wrapper-xblock-field incontext-editor is-editable" data-field="display_name" data-field-display-name="<%= gettext("Display Name") %>">
@@ -22,6 +22,14 @@
 
             <div class="item-actions">
                 <ul class="actions-list">
+                    <% if (xblockInfo.isEditable()) { %>
+                        <li class="action-item action-configure">
+                            <a href="#" data-tooltip="<%= gettext('Configure') %>" class="configure-button action-button">
+                                <i class="icon-gear"></i>
+                                <span class="sr"><%= gettext('Configure') %></span>
+                            </a>
+                        </li>
+                    <% } %>
                     <li class="action-item action-delete">
                         <a href="#" data-tooltip="<%= gettext('Delete') %>" class="delete-button action-button">
                             <i class="icon-remove"></i>
@@ -35,15 +43,29 @@
             <% if (xblockInfo.get('edited_on')) { %>
                 <div class="meta-info">
                     <% if (xblockInfo.get('published')) { %>
-                        <i class="icon-check"></i>
-                        <%= gettext('Released:') %> Dec 31, 2015 at 21:00 UTC
+                        <span class="release-date">
+                            <i class="icon-check"></i>
+                            <%= gettext('Released:') %> <%= xblockInfo.get('release_date') %>
+                        </span>
                     <% } else { %>
-                        <i class="icon-time"></i>
-                        <%= gettext('Scheduled:') %> Dec 31, 2015 at 21:00 UTC
+                        <span class="schedule">
+                            <i class="icon-time"></i>
+                            <%= gettext('Scheduled:') %> <%= xblockInfo.get('release_date') %>
+                        </span>
+                    <% } %>
+                    <% if (xblockInfo.get('due_date')) { %>
+                        <span class="due-date">
+                            <i class="icon-time"></i>
+                            <%= gettext('Due date:') %> <%= xblockInfo.get('due_date') %>
+                        </span>
+                    <% } %>
+                    <% if (xblockInfo.get('format')) { %>
+                        <span class="policy">
+                            <%= gettext('Policy:') %> <%= xblockInfo.get('format')  ? xblockInfo.get('format')  : gettext('Not Graded') %>
+                        </span>
                     <% } %>
                 </div>
             <% } %>
-
 
             <div class="item-actions">
                 <ul class="actions-list">

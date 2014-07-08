@@ -1167,6 +1167,11 @@ class TestXBlockInfo(ItemTest):
         self.assertEqual(xblock_info['display_name'], 'Week 1')
         self.assertTrue(xblock_info['published'])
         self.assertEqual(xblock_info['edited_by'], 'testuser')
+        self.assertEqual(xblock_info['course_graders'], '["Homework", "Lab", "Midterm Exam", "Final Exam"]')
+        self.assertEqual(xblock_info['start'], '2030-01-01T00:00:00Z')
+        self.assertEqual(xblock_info['graded'], False)
+        self.assertEqual(xblock_info['due'], None)
+        self.assertEqual(xblock_info['format'], None)
 
         # Finally, validate the entire response for consistency
         self.validate_xblock_info_consistency(xblock_info, has_child_info=has_child_info)

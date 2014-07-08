@@ -1,4 +1,5 @@
 """
+<<<<<<< HEAD
 Acceptance tests for studio related to the outline page.
 """
 
@@ -9,6 +10,13 @@ from ..pages.lms.courseware import CoursewarePage
 from ..fixtures.course import XBlockFixtureDesc
 
 from acceptance.tests.base_studio_test import StudioCourseTest
+from .helpers import load_data_str
+from ..pages.lms.progress import ProgressPage
+
+
+SECTION_NAME = 'Test Section'
+SUBSECTION_NAME = 'Test Subsection'
+UNIT_NAME = 'Test Unit'
 
 
 class CourseOutlineTest(StudioCourseTest):
@@ -26,19 +34,140 @@ class CourseOutlineTest(StudioCourseTest):
         self.course_outline_page = CourseOutlinePage(
             self.browser, self.course_info['org'], self.course_info['number'], self.course_info['run']
         )
+        self.progress_page = ProgressPage(self.browser, self.course_id)
 
     def populate_course_fixture(self, course_fixture):
         """ Install a course with sections/problems, tabs, updates, and handouts """
         course_fixture.add_children(
-            XBlockFixtureDesc('chapter', 'Test Section').add_children(
-                XBlockFixtureDesc('sequential', 'Test Subsection').add_children(
-                    XBlockFixtureDesc('vertical', 'Test Unit').add_children(
+            XBlockFixtureDesc('chapter', SECTION_NAME).add_children(
+                XBlockFixtureDesc('sequential', SUBSECTION_NAME).add_children(
+                    XBlockFixtureDesc('vertical', UNIT_NAME).add_children(
+                        XBlockFixtureDesc('problem', 'Test Problem 1', data=load_data_str('multiple_choice.xml')),
                         XBlockFixtureDesc('html', 'Test HTML Component'),
                         XBlockFixtureDesc('discussion', 'Test Discussion Component')
                     )
                 )
             )
         )
+
+
+class ClassName(CourseOutlineTest):
+    """
+    Feature: Editing Release date, Due date and grading type.
+    """
+
+    __test__ = True
+
+    def test_can_edit_subsection(self):
+        """
+        Scenario: I can edit settings of subsection.
+
+            Given that I have created a subsection
+            Then I see release date, due date and grading policy of subsection in course outline
+            When I click on the configuration icon
+            Then edit modal window is shown
+            And release date, due date and grading policy fields present
+            And they have correct initial values
+            Then I set new values for these fields
+            And I click save button on the modal
+            Then I see release date, due date and grading policy of subsection in course outline
+        """
+        subsection = self.outline.section(SECTION_NAME).subsection(SUBSECTION_NAME)
+
+        # Verify that Release date visible by default
+        self.assertTrue(subsection.release_date)
+        # Verify that Due date and Policy hidden by default
+        self.assertFalse(subsection.due_date)
+        self.assertFalse(subsection.policy)
+
+        modal = subsection.edit()
+
+        # Verify fields
+        self.assertTrue(modal.has_release_date())
+        self.assertTrue(modal.has_due_date())
+        self.assertTrue(modal.has_policy())
+
+        # Verify initial values
+        self.assertEqual(modal.release_date, u'1/1/1970')
+        self.assertEqual(modal.due_date, u'')
+        self.assertEqual(modal.policy, u'Not Graded')
+
+        # Set new values
+        modal.release_date = 12
+        modal.due_date = 21
+        modal.policy = 'Lab'
+
+        modal.save()
+        self.assertIn(u'Released: Jan 12, 1970', subsection.release_date)
+        self.assertIn(u'Due date: Jul 21, 2014', subsection.due_date)
+        self.assertIn(u'Policy: Lab', subsection.policy)
+
+    def test_can_edit_section(self):
+        """
+        Scenario: I can edit settings of section.
+
+            Given that I have created a section
+            Then I see release date of section in course outline
+            When I click on the configuration icon
+            Then edit modal window is shown
+            And release date field present
+            And it has correct initial value
+            Then I set new value for this field
+            And I click save button on the modal
+            Then I see release date of section in course outline
+        """
+        section = self.outline.section(SECTION_NAME)
+        modal = section.edit()
+
+        # Verify that Release date visible by default
+        self.assertTrue(section.release_date)
+        # Verify that Due date and Policy are not present
+        self.assertFalse(section.due_date)
+        self.assertFalse(section.policy)
+
+        # Verify fields
+        self.assertTrue(modal.has_release_date())
+        self.assertFalse(modal.has_due_date())
+        self.assertFalse(modal.has_policy())
+
+        # Verify initial value
+        self.assertEqual(modal.release_date, u'1/1/1970')
+
+        # Set new value
+        modal.release_date = 14
+
+        modal.save()
+        self.assertIn(u'Released: Jan 14, 1970', section.release_date)
+        # Verify that Due date and Policy are not present
+        self.assertFalse(section.due_date)
+        self.assertFalse(section.policy)
+
+    def test_subsection_is_graded_in_lms(self):
+        """
+        Scenario: I can grade subsection from course outline page.
+
+            Given I visit progress page
+            And I see that problem in subsection has grading type "Practice"
+            Then I visit course outline page
+            And I click on the configuration icon of subsection
+            And I set grading policy to "Lab"
+            And I click save button on the modal
+            Then I visit progress page
+            And I see that problem in subsection has grading type "Problem"
+        """
+        self.progress_page.visit()
+        self.assertEqual(u'Practice', self.progress_page.grading_formats[0])
+        self.outline.visit()
+
+        subsection = self.outline.section(SECTION_NAME).subsection(SUBSECTION_NAME)
+        modal = subsection.edit()
+        # Set new values
+        modal.policy = 'Lab'
+        modal.save()
+
+        self.progress_page.visit()
+
+        self.assertEqual(u'Problem', self.progress_page.grading_formats[0])
 
 
 class EditNamesTest(CourseOutlineTest):
