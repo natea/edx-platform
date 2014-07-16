@@ -17,7 +17,9 @@ insight into the relative effectiveness of your course content.
 
 For more information, see:
 
-*
+* :ref:`Configure Your Course for Content Experiments`
+* :ref:`Add Content Experiments to Your Course`
+* :ref:`Test Content Experiments`
 
 .. _Courses with Multiple Content Experiments:
 
@@ -26,22 +28,23 @@ Courses with Multiple Content Experiments
 ******************************************
 
 You can run multiple content experiments in your course. You can set up each
-experiment to use the same groups of students; or, you can set up each
+experiment to use the same groups of students, or you can set up each
 experiment to be independent and use a different grouping.
 
 .. important::
 
   If your course has multiple experiments, it is critical that you decide
-  upfront if the experiments share the same groups of students or if each
+  up front if the experiments share the same groups of students or if each
   experiment has its own unique grouping. If two experiments share the same
   grouping, then any student that is in Group A for the first experiment will
   also be in Group A for the second one. If you want the experiments to be
   independent, then the experiments must use different groupings so that
   students are randomly assigned for each experiment.
 
-To determine the available groupings of students, you :ref:`Set up Group
-Configurations in edX Studio` or :ref:`Set up Group Configurations in an XML
-Course`.
+To determine the available groupings of students, you :ref:`set up group
+configurations in Studio <Set up Group Configurations in edX Studio>` or
+:ref:`in XML <Set up Group Configurations in an XML Course>`.
 
-You then select which grouping to use when you :ref:`Add a Content Experiment
-in Studio` or :ref:`Add a Content Experiment in XML`.
+You then select which grouping to use when you :ref:`add a content experiment
+in Studio <Add a Content Experiment in Studio>` or :ref:`in XML <Add a Content
+Experiment in XML>`.

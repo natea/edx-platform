@@ -337,7 +337,7 @@ A parent component has a display name. When the unit is private or in draft,
 click **Edit** in the parent component to change the display name.
 
 .. note:: 
-  Parent components of a specific type, such as Content Experiments, have
+  Parent components of a specific type, such as content experiments, have
   additional attributes that you edit.
 
 
@@ -507,8 +507,8 @@ component you are moving appears in the new location:
 .. image:: ../Images/drag_child_component.png
  :alt: Image of dragging a child component to a new location
 
-You can also drag a child component outside of a parent, to make it at the same
-level as its parent.
+You can also drag a child component outside of a parent, so that the child
+moves to the same level as the parent.
 
 .. note:: 
   For content experiments, you cannot drag a child component outside of a test

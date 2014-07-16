@@ -23,14 +23,15 @@ To enable content experiments in your course, you add ``split_test`` to the
 ``advanced_modules`` policy key.
 
 .. note::  
-  A ``split_test`` is the internal edX Platform name for a content experiment.
+  ``split_test`` is the internal edX Platform name for a content experiment.
 
 #. From the **Settings** menu, select **Advanced Settings**.
-#. In the Advanced Settings page, find the ``advanced_modules`` policy key.
-#. In the Policy Value field, add ``"split_test"``. 
+#. In the **Advanced Settings** page, find the ``advanced_modules`` policy key.
+#. In the **Policy Value** field, add ``"split_test"``. 
    
-   Be sure to use the double quotation marks around the value, and if you use
-   multiple values for the key that they are separated by commas (``,``).
+   Be sure that you use the double quotation marks around the value, and that
+   if you use multiple values for the key that they are separated by commas
+   (``,``).
 
 #. At the bottom of the page, click **Save Changes**.
 
@@ -52,8 +53,8 @@ For example, you may want to do one content experiment that presents either a
 video or a reading assignment to your students, and another content experiment
 that presents the same question using four different problem types. For the
 first content experiment, you need a group configuration that assigns your
-students into two groups, and for the second content experiment, you need a
-group configuration that assigns your students into four groups.
+students to two groups, and for the second content experiment, you need a
+group configuration that assigns your students to four groups.
 
 =============================
 Assigning Students to Groups
@@ -65,8 +66,8 @@ Group assignments are:
 
 * Dynamic
 
-  A student is assigned to a group the first time he or she views a content
-  experiment that uses the group configuration.
+  The edX Platform assigns a student to a group the first time he or she views
+  a content experiment that uses the group configuration.
 
 * Random
   
@@ -90,10 +91,11 @@ Group assignments are:
 Set up Group Configurations in edX Studio 
 ************************************************
 
-You must enable group configurations before you can specify
+You must enable group configurations before you can set up group
+configurations.
 
 To set up group configurations, from the **Advanced** menu, select **Group
-Configurations**. The Group Configurations page opens:
+Configurations**. The **Group Configurations** page opens:
 
 .. image:: ../Images/group_configurations.png
  :alt: The Group Configurations page
@@ -104,14 +106,15 @@ From this page you can create and edit group configurations.
 Create a Group Configuration
 =============================
 
-#. In the Group Configurations page, click **New Group Configuration** or **Add
-   your first Group Configuration**.
-#. Enter a Group Configuration Name. Use a meaningful name, as you select from
-   group configuration names when creating content experiments.
+#. In the **Group Configurations** page, click **New Group Configuration** or
+   **Add your first Group Configuration**.
+#. Enter a name in the **Group Configuration Name** field. Use a meaningful
+   name, as you select from group configuration names when creating content
+   experiments.
 #. Optionally, enter a description for the new group configuration.
 #. SET UP GROUPS TBD
    
-The Group Configuration is then listed in the page:
+The group configuration is then listed in the page:
 
 .. image:: ../Images/group_configurations_one_listed.png
  :alt: The Group Configurations page with one group configuration
@@ -122,10 +125,10 @@ Edit a Group Configuration
 
 .. note:: 
   Before modifying groups within a group configuration that is currently used
-  in a running course, review the section `Guidelines for Modifying Group
+  in a running course, review `Guidelines for Modifying Group
   Configurations`_.
 
-#. In the Group Configurations page, hover over the group configuration and
+#. In the **Group Configurations** page, hover over the group configuration and
    click **Edit**.
    
    .. image:: ../Images/group_configurations_edit.png
@@ -186,7 +189,7 @@ Removing Groups from Group Configurations
 After a course has started, you may find that students in a specific group are
 having difficulties or a poor experience. In this situation, you can remove the
 group from the group configuration. Content that was specified for that
-group is then no longer part of the course.
+group is then no longer visible to students.
 
 Students in the removed group are reassigned evenly to one of the other groups
 in the group configuration. Any problems that these students completed in the
@@ -196,7 +199,7 @@ content to which they've been reassigned.
 
 Removing a group impacts the course event data. Ensure that researchers
 evaluating your course results are aware of the group you removed and the
-date.
+date you removed it.
 
 .. _Set up Group Configurations in an XML Course:
 
@@ -214,7 +217,7 @@ To specify group configurations, you modify the value for the
 ``user_partitions`` policy key.
 
 .. note::  
-  A ``user_partitions`` is the internal edX Platform name for group
+  ``user_partitions`` is the internal edX Platform name for group
   configurations.
 
 The value for ``user_partitions`` is a JSON collection of group configurations,

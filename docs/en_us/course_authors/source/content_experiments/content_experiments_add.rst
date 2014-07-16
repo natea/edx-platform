@@ -1,10 +1,13 @@
-.. _Adding Content Experiments to Your Course:
+.. _Add Content Experiments to Your Course:
 
 #########################################
-Adding Content Experiments to Your Course
+Add Content Experiments to Your Course
 #########################################
 
-After you :ref:`Enable Content Experiments` and :ref:`Set up Group Configurations in edX Studio` or :ref:`Set up Group Configurations in an XML Course`, you can add content experiments to your course. See:
+After you :ref:`enable content experiments <Enable Content Experiments>` and
+:ref:`set up group configurations in Studio <Set up Group Configurations in edX
+Studio>` or :ref:`in XML <Set up Group Configurations in an XML Course>`, you
+can add content experiments to your course. See:
 
 * :ref:`Add a Content Experiment in Studio`
 * :ref:`Add a Content Experiment in XML`
@@ -31,14 +34,14 @@ To configure a content experiment in Studio, you:
 #. `Create the content experiment`_.
 #. `Create content for groups in the content experiment`_.
    
-After you configure a content experiment, if necessary you can `Change the
-Group Configuration for a Content Experiment`_.   
+After you configure a content experiment, if necessary you can `change the group configuration <Change the
+Group Configuration for a Content Experiment>`_.   
 
 ===============================
 Create the Content Experiment
 ===============================
 
-#. In a private or draft unit page, under **Add New Component** click
+#. In a private or draft unit page, under **Add New Component**, click
    **Advanced**.
 
 #. Select **Content Experiment**.
@@ -48,8 +51,8 @@ Create the Content Experiment
    .. image:: ../Images/content_experiment_block.png
     :alt: The content experiment component in a unit page
 
-   You can work with the content experiment as you can any other component.  See
-   :ref:`Components` for more information.
+   You can work with the content experiment as you can any other component.
+   See :ref:`Components` for more information.
 
 #. Click **Select a Group Configuration** or **Edit** to open the content
    experiment component.
@@ -59,8 +62,8 @@ Create the Content Experiment
 
 #. Select a group configuration.
 
-#. Modify the **Display Name**.  The Display Name is only used in Studio;
-   students do not see this value.
+#. In the **Display Name** field, modify the name to use in Studio.  The
+   Display Name is only used in Studio; students do not see this value.
 
 #. Click **Save**.
 
@@ -74,7 +77,7 @@ You can now create content for the groups in the experiment.
 Create Content for Groups in the Content Experiment
 =====================================================
    
-After you select a group configuration, in the content experiment component
+After you select a group configuration, in the content experiment component,
 click **View**.
 
 The content experiment page that opens automatically includes a container for
@@ -134,8 +137,8 @@ To change the group configuration:
    .. image:: ../Images/inactive_groups.png
     :alt: Components in inactive groups
 
-#. Drag and drop components from the Inactive Groups into the new groups as
-   needed. You can also create new components in the new groups.
+#. Drag and drop components from the **Inactive Groups** section into the new
+   groups as needed. You can also create new components in the new groups.
 
 
 .. _Add a Content Experiment in XML:
@@ -158,7 +161,8 @@ information about terminology, see the `edX XML Tutorial
 Define the Content Experiment in the Sequential File
 =====================================================
 
-You reference a content experiment in the file for the subsection in the ``sequential`` directory. For example:
+You reference a content experiment in the file for the subsection in the
+``sequential`` directory. For example:
 
 .. code-block:: xml
 
@@ -168,7 +172,8 @@ You reference a content experiment in the file for the subsection in the ``seque
     </vertical>
     .....
 
-The ``<split_test>`` element's ``url_name`` value references the name of the A/B test file in the ``split_test`` directory.
+The ``<split_test>`` element's ``url_name`` value references the name of the
+A/B test file in the ``split_test`` directory.
 
 
 .. _Define the Experiment Content in the Split Test File:
@@ -218,11 +223,12 @@ In this example:
   in the ``policy.json`` file.
 
 * The ``group_id_to_child`` value references the IDs of the groups defined in
-  the ``policy.json`` file, and maps the group IDs to specific content.
+  the ``policy.json`` file and maps the group IDs to specific content.
 
   For example,  the value for group ``0``, ``i4x://path-to-
   course/vertical/group_a``, maps to the ``<vertical>`` element with the
   ``url_name`` equal to ``group_a``.  Therefore, students in group 0 see the
   content in that vertical.
 
-For information about the ``policy.json`` file, see :ref:`Set up Group Configurations in an XML Course`.
+For information about the ``policy.json`` file, see :ref:`Set up Group
+Configurations in an XML Course`.

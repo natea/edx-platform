@@ -1,8 +1,11 @@
-.. _View a Content Experiment as Course Staff:
+.. _Test Content Experiments:
 
 ##########################################
-View a Content Experiment as Course Staff
+Test Content Experiments
 ##########################################
+
+You should test content experiments in your course before the course starts, to
+ensure that content is delivered to groups as you intended.
 
 When you view a unit that contains a content experiment in the LMS in the Staff
 view, you use a drop-down list to select a group. The unit page then shows the
