@@ -133,6 +133,21 @@ Edit a Group Configuration
 
 #. Modify the name and description as needed.
 #. MODIFY GROUPS TBD
+   
+
+===============================================
+View Experiments that Use a Group Configuration
+===============================================
+
+When working with group configurations, you can view the experiments that use
+each configuration.
+
+In the Group Configuration page, expand a group to see its details. You see
+links to experiments that use the group configuration:
+
+.. image:: ../Images/group_configurations_experiments.png
+ :alt: A Group Configuration with the experiments using it circled
+
 
 .. _Guidelines for Modifying Group Configurations:
 
@@ -206,7 +221,8 @@ The value for ``user_partitions`` is a JSON collection of group configurations,
 each of which defines the groups of students. 
 
 .. note:: 
-  Use names for group configurations that are meaningful. You select from the list of group configuration names when you add a content experiment. 
+  Use names for group configurations that are meaningful. You select from the
+  list of group configuration names when you add a content experiment.
 
 See the following examples for more information.
 
@@ -214,7 +230,8 @@ See the following examples for more information.
 Example: One Group Configuration
 =============================================
 
-The following is an example JSON object that defines an group configuration with two student segments.
+The following is an example JSON object that defines an group configuration
+with two student segments.
 
 .. code-block:: json
 
@@ -233,10 +250,9 @@ The following is an example JSON object that defines an group configuration with
 
 In this example:
 
-* The ``"id": 0`` identifies the group configuration. For XML courses, the value
-  is referenced in the ``user_partition`` attribute of the ``<split_test>``
-  element in the content experiment file.
-
+* The ``"id": 0`` identifies the group configuration. For XML courses, the
+  value is referenced in the ``user_partition`` attribute of the
+  ``<split_test>`` element in the content experiment file.
 * The ``groups`` array identifies the groups to which students are randomly
   assigned. For XML courses, each group ``id`` value is referenced in the
   ``group_id_to_child`` attribute of the ``<split_test>`` element.
