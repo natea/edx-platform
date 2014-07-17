@@ -624,24 +624,22 @@ class DraftModuleStore(MongoModuleStore):
         # list of published ones.)
         to_be_deleted = []
 
-        def _internal_depth_first(item_location, is_root):
+        def _internal_depth_first(item, is_root):
             """
             Depth first publishing from the given location
             """
-            item = self.get_item(item_location)
-
             # publish the children first
             if item.has_children:
-                for child_loc in item.children:
-                    _internal_depth_first(child_loc, False)
+                for child in item.get_children():
+                    _internal_depth_first(child, False)
 
-            if item_location.category in DIRECT_ONLY_CATEGORIES or not getattr(item, 'is_draft', False):
+            if item.location.category in DIRECT_ONLY_CATEGORIES or not getattr(item, 'is_draft', False):
                 # ignore noop attempt to publish something that can't be or isn't currently draft
                 return
 
             # try to find the originally PUBLISHED version, if it exists
             try:
-                original_published = super(DraftModuleStore, self).get_item(item_location)
+                original_published = super(DraftModuleStore, self).get_item(item.location)
             except ItemNotFoundError:
                 original_published = None
 
@@ -654,7 +652,7 @@ class DraftModuleStore(MongoModuleStore):
                     for orig_child in original_published.children:
                         if orig_child not in item.children:
                             published_parent = self.get_parent_location(orig_child)
-                            if published_parent == item_location:
+                            if published_parent == item.location:
                                 # Case 1: child was deleted in draft parent item
                                 # So, delete published version of the child now that we're publishing the draft parent
                                 self._delete_subtree(orig_child, [as_published])
@@ -664,13 +662,13 @@ class DraftModuleStore(MongoModuleStore):
                                 pass
 
             super(DraftModuleStore, self).update_item(item, user_id, isPublish=True, is_publish_root=is_root)
-            to_be_deleted.append(as_draft(item_location).to_deprecated_son())
+            to_be_deleted.append(as_draft(item.location).to_deprecated_son())
 
         # verify input conditions
         self._verify_branch_setting(ModuleStoreEnum.Branch.draft_preferred)
         _verify_revision_is_published(location)
 
-        _internal_depth_first(location, True)
+        _internal_depth_first(self.get_item(location, depth=None), True)
         if len(to_be_deleted) > 0:
             self.collection.remove({'_id': {'$in': to_be_deleted}})
         return self.get_item(as_published(location))
