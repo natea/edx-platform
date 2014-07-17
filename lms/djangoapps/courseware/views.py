@@ -6,6 +6,7 @@ import logging
 import urllib
 import json
 
+from datetime import datetime
 from collections import defaultdict
 from django.utils.translation import ugettext as _
 
@@ -15,6 +16,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.auth.decorators import login_required
+from django.utils.timezone import UTC
 from django.views.decorators.http import require_GET
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect
@@ -25,7 +27,7 @@ from django.db import transaction
 from markupsafe import escape
 
 from courseware import grades
-from courseware.access import has_access
+from courseware.access import has_access, _adjust_start_date_for_beta_testers
 from courseware.courses import get_courses, get_course, get_studio_url, get_course_with_access, sort_by_announcement
 from courseware.masquerade import setup_masquerade
 from courseware.model_data import FieldDataCache
@@ -302,6 +304,11 @@ def index(request, course_id, chapter=None, section=None,
             'xqa_server': settings.FEATURES.get('USE_XQA_SERVER', 'http://xqa:server@content-qa.mitx.mit.edu/xqa'),
             'reverifications': fetch_reverify_banner_info(request, course_key),
         }
+
+        now = datetime.now(UTC())
+        effective_start = _adjust_start_date_for_beta_testers(user, course, course_key)
+        if staff_access and now < effective_start:
+            context['disable_student_access'] = True
 
         has_content = course.has_children_at_depth(CONTENT_DEPTH)
         if not has_content:

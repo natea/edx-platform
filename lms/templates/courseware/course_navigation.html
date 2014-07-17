@@ -50,7 +50,7 @@ def url_class(is_active):
     <%block name="extratabs" />
         % if masquerade is not UNDEFINED:
           % if staff_access and masquerade is not None:
-            <li style="float:right"><a href="#" id="staffstatus">${_("Staff view")}</a></li>
+            <li style="float:right"><a href="#" id="staffstatus" {% if disable_student_access %} title="Course is not yet visible to students." disabled="disabled" {% endif %}>${_("Staff view")}</a></li>
           % endif
         % endif
     </ol>
@@ -73,6 +73,9 @@ masq = (function(){
     setstat('${masquerade}');
 
     el.click(function(){
+        if (el.attr("disabled")) {
+           return alert("Course is not yet visible to students.");
+        }
         $.ajax({ url: '/masquerade/toggle',
                  type: 'GET',
                  success: function(result){
