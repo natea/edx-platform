@@ -1088,7 +1088,7 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase):
             self._update_ancestors(parent, update)
 
     def update_item(self, xblock, user_id, allow_not_found=False, force=False, isPublish=False,
-                    is_publish_root=True):
+                    is_publish_root=True, **kwargs):
         """
         Update the persisted version of xblock to reflect its current values.
 
