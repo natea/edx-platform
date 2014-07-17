@@ -51,7 +51,7 @@ def test_bokchoy(options):
 @cmdopts([
     ('test_spec=', 't', 'Specific test to run'),
     ('fasttest', 'a', 'Skip some setup'),
-    ('num_tests=', 'n', 'Number of times to run the test suit'),
+    ('num_times=', 'n', 'Number of times to run the test suit'),
     make_option("--verbose", action="store_const", const=2, dest="verbosity"),
     make_option("-q", "--quiet", action="store_const", const=0, dest="verbosity"),
     make_option("-v", "--verbosity", action="count", dest="verbosity"),
@@ -70,13 +70,12 @@ def test_video(options):
     """
 
     opts = {
-        'test_spec': getattr(options, 'test_spec', 'video/test_video_handout.py'),
-        'num_tests': getattr(options, 'num_tests', 1),
+        'test_spec': getattr(options, 'test_spec', 'video/test_video_handout.py' + \
+                             ':VideoHandoutTest.test_handout_upload_and_clear_works'),
+        'num_times': getattr(options, 'num_times', 1),
         'fasttest': getattr(options, 'fasttest', False),
         'verbosity': getattr(options, 'verbosity', 2)
     }
-
-    print "num tests:", opts['num_tests']
 
     test_suite = VideoTestSuite('bok-choy', **opts)
     test_suite.run()
