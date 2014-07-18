@@ -65,7 +65,7 @@ masq = (function(){
     var el = $('#staffstatus');
     % if disable_student_access:
         el.attr("disabled", true);
-        el.attr("title", "Course is not yet visible to students.");
+        el.attr("title", "${_("Course is not yet visible to students.")}");
     % endif
     var setstat = function(status){
         if (status=='student'){

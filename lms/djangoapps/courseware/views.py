@@ -308,6 +308,8 @@ def index(request, course_id, chapter=None, section=None,
         now = datetime.now(UTC())
         effective_start = _adjust_start_date_for_beta_testers(user, course, course_key)
         if staff_access and now < effective_start:
+            # Disable student view button if user is staff and
+            # course is not yet visible to students.
             context['disable_student_access'] = True
 
         has_content = course.has_children_at_depth(CONTENT_DEPTH)
@@ -544,6 +546,13 @@ def course_info(request, course_id):
         'studio_url': studio_url,
         'reverifications': reverifications,
     }
+
+    now = datetime.now(UTC())
+    effective_start = _adjust_start_date_for_beta_testers(request.user, course, course_key)
+    if staff_access and now < effective_start:
+        # Disable student view button if user is staff and
+        # course is not yet visible to students.
+        context['disable_student_access'] = True
 
     return render_to_response('courseware/info.html', context)
 
