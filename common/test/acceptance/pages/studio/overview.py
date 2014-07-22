@@ -19,7 +19,11 @@ class CourseOutlineItem(object):
     NAME_INPUT_SELECTOR = '.xblock-title .xblock-field-input'
 
     def __repr__(self):
-        return "{}(<browser>, {!r})".format(self.__class__.__name__, self.locator)
+        # CourseOutlinePages do not have locators
+        try:
+            return "{}(<browser>, {!r})".format(self.__class__.__name__, self.locator)
+        except AttributeError:
+            return "{}(<browser>)".format(self.__class__.__name__)
 
     def _bounded_selector(self, selector):
         """
