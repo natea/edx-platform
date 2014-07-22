@@ -91,8 +91,8 @@ Group assignments are:
 Set up Group Configurations in edX Studio 
 ************************************************
 
-You must enable group configurations before you can set up group
-configurations.
+You must :ref:`enable content experiments<Enable Content Experiments>` before
+you can set up group configurations.
 
 To set up group configurations, from the **Advanced** menu, select **Group
 Configurations**. The **Group Configurations** page opens:
@@ -100,19 +100,33 @@ Configurations**. The **Group Configurations** page opens:
 .. image:: ../Images/group_configurations.png
  :alt: The Group Configurations page
 
-From this page you can create and edit group configurations.
+From this page you can create, edit, and delete group configurations. You can also view experiments that use a group configuration.
 
 =============================
 Create a Group Configuration
 =============================
 
 #. In the **Group Configurations** page, click **New Group Configuration** or
-   **Add your first Group Configuration**.
-#. Enter a name in the **Group Configuration Name** field. Use a meaningful
+   **Add your first Group Configuration**. The following page opens:
+
+  .. image:: ../Images/create-group-config.png
+   :alt: Create a New Group Configuration page
+
+2. Enter a name in the **Group Configuration Name** field. Use a meaningful
    name, as you select from group configuration names when creating content
-   experiments.
+   experiments. Students will not see the name.
+
 #. Optionally, enter a description for the new group configuration.
-#. SET UP GROUPS TBD
+#. Modify groups in the configuration as needed:
+
+  * Click **Add another group** to include another group as part of the
+    configuration.
+  * Click the **X** to the right of an existing group to remove it from the
+    configuration. Note that the configuration must have at least two groups.
+  * Modify the group names as needed. You see group names in the unit page in
+    Studio; students do not see group names.
+
+5. Click **Create** to save the new group configuration.
    
 The group configuration is then listed in the page:
 
@@ -134,9 +148,32 @@ Edit a Group Configuration
    .. image:: ../Images/group_configurations_edit.png
     :alt: The Group Configurations page with Edit button
 
+   The following page opens:
+
+   .. image:: ../Images/save-group-config.png
+    :alt: Edit a Group Configuration page
+
 #. Modify the name and description as needed.
-#. MODIFY GROUPS TBD
+#. Modify groups in the configuration as needed:
+
+  * Click **Add another group** to include another group as part of the
+    configuration.
+  * Click the **X** to the right of an existing group to remove it from the
+    configuration. Note that the configuration must have at least two groups.
+  * Modify the group names as needed. You see group names in the unit page in
+    Studio; students do not see group names.
    
+4. Click **Save** to save your changes.
+
+=============================
+Delete a Group Configuration
+=============================
+
+.. warning:: 
+ Do not delete a group configuration that is used in the courseware after your
+ course has started.
+
+STEPS TBP
 
 ===============================================
 View Experiments that Use a Group Configuration
@@ -150,7 +187,6 @@ links to experiments that use the group configuration:
 
 .. image:: ../Images/group_configurations_experiments.png
  :alt: A Group Configuration with the experiments using it circled
-
 
 .. _Guidelines for Modifying Group Configurations:
 
