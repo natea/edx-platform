@@ -180,6 +180,7 @@ class VideoHandoutTest(CMSVideoBaseTest):
         """
 
         from nose.tools import set_trace
+        
         set_trace()
 
         self._create_course_unit_with_handout('asset.html', save_settings=False)
