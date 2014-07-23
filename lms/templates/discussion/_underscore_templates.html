@@ -439,6 +439,26 @@
 <script aria-hidden="true" type="text/template" id="new-post-template">
     <form class="forum-new-post-form">
         <ul class="post-errors" style="display: none"></ul>
+        <div class="post-field">
+            <div class="field-label">
+                <span class="field-label-text">
+                    ${_("Create New:")}
+                </span><span class="field-input" role="radiogroup">
+                    <button type="button" class="post-type-input is-enabled" aria-checked="true" role="radio" data-value="question">
+                        <i class="icon icon-question"></i>
+                        ## Translators: This represents a forum post type
+                        <span class="post-type-text">${_("Question")}</span>
+                    </button>
+                    <button type="button" class="post-type-input" aria-checked="false" role="radio" data-value="discussion">
+                        <i class="icon icon-comments"></i>
+                        ## Translators: This represents a forum post type
+                        <span class="post-type-text">${_("Discussion")}</span>
+                    </button>
+                </span>
+            </div><span class="field-help">
+                ${_("Questions are resolved when the author or staff accepts a response as the answer. Discussions are any other notes, resources, or reflections students want to share with the community.")}
+            </span>
+        </div>
         ${'<% if (mode=="tab") { %>'}
         <div class="post-field">
             ## Using div here instead of label because we are using a non-native control

@@ -49,6 +49,8 @@ if Backbone?
 
       events:
           "submit .forum-new-post-form": "createPost"
+          "click .post-type-input": "postTypeChange"
+          "keydown .post-type-input": "postTypeChange"
           "click .post-topic-button": "toggleTopicDropdown"
           "click .topic-menu-wrapper": "handleTopicEvent"
           "click .topic-filter-label": "ignoreClick"
@@ -61,6 +63,24 @@ if Backbone?
       ignoreClick: (event) ->
           event.stopPropagation()
 
+      postTypeChange: (event) ->
+          $target = $(event.currentTarget)
+          if event.type == "click"
+              $selected = $target
+          else
+              switch event.which
+                  when 37, 38 # left arrow, up arrow
+                      $prev = $target.prevAll(".post-type-input")
+                      if $prev.length
+                          $selected = $prev.first()
+                  when 39, 40 # right arrow, down arrow
+                      $next = $target.nextAll(".post-type-input")
+                      if $next.length
+                          $selected = $next.first()
+          if $selected
+              $selected.siblings(".post-type-input").removeClass("is-enabled").attr("aria-checked", "false")
+              $selected.addClass("is-enabled").attr("aria-checked", "true").focus()
+
       postOptionChange: (event) ->
           $target = $(event.target)
           $optionElem = $target.closest(".post-option")
@@ -71,6 +91,7 @@ if Backbone?
 
       createPost: (event) ->
           event.preventDefault()
+          thread_type = @$(".post-type-input.is-enabled").data("value")
           title   = @$(".js-post-title").val()
           body    = @$(".js-post-body").find(".wmd-input").val()
           group = @$(".js-group-select option:selected").attr("value")
@@ -89,6 +110,7 @@ if Backbone?
               dataType: 'json'
               async: false # TODO when the rest of the stuff below is made to work properly..
               data:
+                  thread_type: thread_type
                   title: title
                   body: body
                   anonymous: anonymous
