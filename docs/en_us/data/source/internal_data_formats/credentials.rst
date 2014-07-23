@@ -201,18 +201,25 @@ Browser. Alternatively, you can use the `AWS Command Line Interface`_.
    that account. For more information, refer to the documentation for the tool
    that you selected.
 
-#. Access Amazon S3 and navigate to the edX **course-data** bucket. For each
-   period that a data package is prepared for your organization, two files are
-   available.
+#. Access Amazon S3 and navigate to the **edx-course-data** bucket. In this
+   bucket, event logs are in a file named {organization}-{date}.zip.
+   See :ref:`Package`. A new event log file is available every day.
 
-   Event tracking data is in a file named {date}-{organization}-tracking.tar.
-   Database data files are in a file named {organization}-{date}.zip.
+#. Download the file. 
 
-#. Download the files. These files can be very large, sometimes several
-   gigabytes in size.
+#. Use your private key to decrypt the .gpg file. See `Decrypt an Encrypted
+   File`_.
 
-#. Extract the files from the compressed .tar and the .zip files. All of the
-   files that you extract are .gpg files.
+#. Extract the log file from the compressed .gz file. 
+
+#. In Amazon S3, navigate to the edX **course-data** bucket. This bucket
+   contains the database data files, which are compressed into a  are in a file
+   named {organization}-{date}.zip. See :ref:`Package`. A new database data
+   file is available each week.
+
+#. Download the file. 
+
+#. Extract the .gpg files from the compressed .zip file. 
 
 #. Use your private key to decrypt the .gpg files. See `Decrypt an Encrypted
    File`_.
