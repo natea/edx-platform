@@ -178,6 +178,10 @@ class VideoHandoutTest(CMSVideoBaseTest):
         Then I can see video button "handout"
         And I can download handout file with mime type "application/pdf"
         """
+
+        from nose.tools import set_trace
+        set_trace()
+
         self._create_course_unit_with_handout('asset.html', save_settings=False)
 
         self.video.clear_handout()
