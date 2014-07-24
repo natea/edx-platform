@@ -108,7 +108,8 @@ if Backbone?
         el: @newPostForm,
         collection: @discussion,
         course_settings: @course_settings,
-        topicId: discussionId
+        topicId: discussionId,
+        form_id: "inline-#{discussionId}"
       )
       @newPostView.render()
       @discussion.on "add", @addThread

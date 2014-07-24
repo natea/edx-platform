@@ -20,7 +20,8 @@ if Backbone?
           el: @newPost,
           collection: @discussion,
           course_settings: @course_settings,
-          mode: "tab"
+          mode: "tab",
+          form_id: "tab"
         )
         @newPostView.render()
         $('.new-post-btn').bind "click", @showNewPost
