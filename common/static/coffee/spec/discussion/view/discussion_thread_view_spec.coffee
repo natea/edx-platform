@@ -162,77 +162,36 @@ describe "DiscussionThreadView", ->
                 {model: @thread, el: $(".thread-fixture"), mode: "tab"}
             )
 
-        it "renders correctly with no marked answers and 1 response", ->
+        renderTestCase = (view, numEndorsed, numNonEndorsed) ->
+            generateContent = (idStart, idEnd) ->
+                _.map(_.range(idStart, idEnd), (i) -> {"id": "#{i}"})
             renderWithContent(
-                @view,
+                view,
                 {
-                    endorsed_responses: [],
-                    non_endorsed_responses: [{id: "1"}],
-                    non_endorsed_resp_total: 1
+                    endorsed_responses: generateContent(0, numEndorsed),
+                    non_endorsed_responses: generateContent(numEndorsed, numEndorsed + numNonEndorsed),
+                    non_endorsed_resp_total: numNonEndorsed
                 }
             )
-            expect($(".js-marked-answer-list .response").length).toEqual(0)
-            expect($(".js-response-list .response").length).toEqual(1)
+            expect(view.$(".js-marked-answer-list .response").length).toEqual(numEndorsed)
+            expect(view.$(".js-response-list .response").length).toEqual(numNonEndorsed)
             assertResponseCountAndPaginationCorrect(
-                @view,
-                "1 response",
-                "Showing all responses",
+                view,
+                ngettext(
+                    "#{numNonEndorsed} #{if numEndorsed then "other " else ""}response",
+                    "#{numNonEndorsed} #{if numEndorsed then "other " else ""}responses",
+                    numNonEndorsed
+                )
+                if numNonEndorsed then "Showing all responses" else null,
                 null
             )
 
-        it "renders correctly with no marked answers and many responses", ->
-            renderWithContent(
-                @view,
-                {
-                    endorsed_responses: [],
-                    non_endorsed_responses: [{id: "1"}, {id: "2"}, {id: "3"}],
-                    non_endorsed_resp_total: 42
-                }
+        _.each({"no": 0, "one": 1, "many": 5}, (numEndorsed, endorsedDesc) ->
+            _.each({"no": 0, "one": 1, "many": 5}, (numNonEndorsed, nonEndorsedDesc) ->
+                it "renders correctly with #{endorsedDesc} marked answer(s) and #{nonEndorsedDesc} response(s)", ->
+                    renderTestCase(@view, numEndorsed, numNonEndorsed)
             )
-            expect($(".js-marked-answer-list .response").length).toEqual(0)
-            expect($(".js-response-list .response").length).toEqual(3)
-            assertResponseCountAndPaginationCorrect(
-                @view,
-                "42 responses",
-                "Showing first 3 responses",
-                "Load all responses"
-            )
-
-        it "renders correctly with marked answers and 1 other response", ->
-            renderWithContent(
-                @view,
-                {
-                    endorsed_responses: [{id: "1"}, {id: "2"}],
-                    non_endorsed_responses: [{id: "3"}],
-                    non_endorsed_resp_total: 1
-                }
-            )
-            expect($(".js-marked-answer-list .response").length).toEqual(2)
-            expect($(".js-response-list .response").length).toEqual(1)
-            assertResponseCountAndPaginationCorrect(
-                @view,
-                "1 other response",
-                "Showing all responses",
-                null
-            )
-
-        it "renders correctly with marked answers and many other responses", ->
-            renderWithContent(
-                @view,
-                {
-                    endorsed_responses: [{id: "1"}, {id: "2"}],
-                    non_endorsed_responses: [{id: "3"}, {id: "4"}, {id: "5"}],
-                    non_endorsed_resp_total: 42
-                }
-            )
-            expect($(".js-marked-answer-list .response").length).toEqual(2)
-            expect($(".js-response-list .response").length).toEqual(3)
-            assertResponseCountAndPaginationCorrect(
-                @view,
-                "42 other responses",
-                "Showing first 3 responses",
-                "Load all responses"
-            )
+        )
 
         it "handles pagination correctly", ->
             renderWithContent(
