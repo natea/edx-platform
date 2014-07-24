@@ -5,9 +5,6 @@ if Backbone?
           @mode = options.mode or "inline"  # allowed values are "tab" or "inline"
           if @mode not in ["tab", "inline"]
               throw new Error("invalid mode: " + @mode)
-          @form_id = options.form_id
-          if not @form_id
-              throw new Error("Form id for new post form unspecified")
           @course_settings = options.course_settings
           @maxNameWidth = 100
           @topicId = options.topicId
@@ -17,7 +14,7 @@ if Backbone?
           _.extend(context, {
               cohort_options: @getCohortOptions(),
               mode: @mode,
-              form_id: @form_id
+              form_id: @mode + (if @topicId then "-" + @topicId else "")
           })
           context.topics_html = @renderCategoryMap(@course_settings.get("category_map")) if @mode is "tab"
           @$el.html(_.template($("#new-post-template").html(), context))
