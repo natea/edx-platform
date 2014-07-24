@@ -154,7 +154,7 @@
     <header>
         <a href="#" class="vote-btn" role="button" aria-pressed="false"><!-- DiscussionContentView.renderVote() populates this --></a>
         <%
-            tooltip_expr = u"<%= thread.get('thread_type') == 'question' ? '{mark_answer}' : '{endorse}' %>".format(
+            tooltip_expr = u"<%- thread.get('thread_type') == 'question' ? '{mark_answer}' : '{endorse}' %>".format(
                 endorse=_("endorse"),
                 mark_answer=_("mark as answer")
             )
