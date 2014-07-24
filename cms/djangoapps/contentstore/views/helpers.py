@@ -82,6 +82,8 @@ def xblock_has_own_studio_page(xblock):
 
     if is_unit(xblock):
         return True
+    elif category == 'sequential':
+        return False
     elif category == 'vertical':
         parent_xblock = get_parent_xblock(xblock)
         return is_unit(parent_xblock) if parent_xblock else False
@@ -99,7 +101,7 @@ def xblock_studio_url(xblock):
     category = xblock.category
     if category == 'course':
         return reverse_course_url('course_handler', xblock.location.course_key)
-    elif category in ('chapter', 'sequential'):
+    elif category == 'chapter':
         return u'{url}?show={usage_key}'.format(
             url=reverse_course_url('course_handler', xblock.location.course_key),
             usage_key=urllib.quote(unicode(xblock.location))
