@@ -3,11 +3,10 @@ Single page performance tests for Studio.
 """
 from bok_choy.performance import WebAppPerfReport, with_cache
 from ..pages.studio.auto_auth import AutoAuthPage
-from ..pages.studio.container import ContainerPage
 from ..pages.studio.login import LoginPage
 from ..pages.studio.overview import CourseOutlinePage
 from ..pages.studio.signup import SignupPage
-
+from ..pages.studio.utils import set_input_value_and_save
 
 class StudioPagePerformanceTestExample(WebAppPerfReport):
     """
@@ -79,7 +78,7 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         """
         Produce a performance report for visiting the course outline page.
         """
-        har_name = 'OutlinePage_{org}_{course}'.format(
+        har_name = 'master/OutlinePage_{org}_{course}'.format(
             org=course_outline_page.course_info['course_org'],
             course=course_outline_page.course_info['course_num']
         )
@@ -91,7 +90,7 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         """
         Produce a performance report for visiting a unit page.
         """
-        har_name = 'UnitPage_{org}_{course}'.format(
+        har_name = 'master/UnitPage_{org}_{course}'.format(
             org=course_info['course_org'],
             course=course_info['course_num']
         )
@@ -99,49 +98,53 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         course_outline_unit.go_to()
         self.save_har(har_name)
 
-    def record_update_subsection_in_course_outline(self, course_outline_page, section_title, original_subsection_title, with_cache):
+    def record_update_section_in_course_outline(self, course_outline_page, original_section_title, with_cache):
         """
-        Produce a performance report for updating a subsection on the
+        Produce a performance report for updating a section display name on the
         outline page.
         """
-        edited_subsection_title = "Edited Subsection Title"
+        edited_section_title = "Edited Section Title"
 
-        # Since this method is called twice, the subsection we want
+        # Since this method is called twice, the section we want
         # will either have its original name or our edited one.
         if with_cache:
-            subsection = course_outline_page.section(section_title).subsection(edited_subsection_title)
+            section = course_outline_page.section(edited_section_title)
         else:
-            subsection = course_outline_page.section(section_title).subsection(original_subsection_title)
+            section = course_outline_page.section(original_section_title)
 
-        har_name = 'OutlinePageUpdateSubsection_{org}_{course}'.format(
+        har_name = 'master/OutlinePageUpdateSubsection_{org}_{course}'.format(
             org=course_outline_page.course_info['course_org'],
             course=course_outline_page.course_info['course_num']
         )
         self.new_page(har_name)
+        course_outline_page.click_section_name()
+        course_outline_page.wait_for_element_visibility('h3.section-name.is_editable > form', 'wait for form to appear')
         if with_cache:
-            subsection.change_name(original_subsection_title)
+            set_input_value_and_save(section, section._bounded_selector('h3.section-name.is_editable > form > input'), original_section_title)
         else:
-            subsection.change_name(edited_subsection_title)
+            set_input_value_and_save(section, section._bounded_selector('h3.section-name.is_editable > form > input'), edited_section_title)
+        course_outline_page.wait_for_ajax()
         self.save_har(har_name)
 
     def record_publish_unit_page(self, course_outline_unit, course_info):
         """
         Produce a performance report for publishing an edited unit container page.
         """
-        locator = course_outline_unit.locator
-        course_outline_unit.go_to()
+        unit_page = course_outline_unit.go_to()
+        unit_page.edit_draft()
+        component = unit_page.components[0]
+        component.q(css=component._bounded_selector('a.delete-button')).click()
+        unit_page.wait_for_element_presence('a.button.action-primary', 'Confirm deletion button is present')
+        unit_page.q(css='a.button.action-primary').click()
+        unit_page.wait_for_ajax()
 
-        container_page = ContainerPage(self.browser, locator)
-        container_page.delete(0)
-
-        har_name = 'UnitPagePublish_{org}_{course}'.format(
+        har_name = 'master/UnitPagePublish_{org}_{course}'.format(
             org=course_info['course_org'],
             course=course_info['course_num']
         )
         self.new_page(har_name)
-        # TODO: make the below two steps a method in ContainerPage
-        container_page.publish_action.click()
-        container_page.wait_for_ajax()
+        unit_page.q(css='a.publish-draft').click()
+        unit_page.wait_for_ajax()
         self.save_har(har_name)
 
     @with_cache
@@ -159,31 +162,29 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         self.record_visit_course_outline(CourseOutlinePage(self.browser, 'AndyA', 'PUB101', 'PUB101'))
 
     @with_cache
-    def test_justice_update_subsection(self):
+    def test_justice_update_section(self):
         """
-        Record updating a subsection on the Justice outline page.
+        Record updating a section's display name on the Justice outline page.
         """
         course_outline_page = CourseOutlinePage(self.browser, 'HarvardX', 'ER22x', '2013_Spring')
         course_outline_page.visit()
 
-        self.record_update_subsection_in_course_outline(
+        self.record_update_section_in_course_outline(
             course_outline_page,
-            'Lecture 1 - Doing the Right Thing',
-            'Discussion Prompt: Ethics of Torture',
+            'How to Navigate the Course',
             self.with_cache
         )
 
     @with_cache
-    def test_pub101_update_subsection(self):
+    def test_pub101_update_section(self):
         """
-        Record updating a subsection on Andy's PUB101 outline page.
+        Record updating a section's display name on Andy's PUB101 outline page.
         """
         course_outline_page = CourseOutlinePage(self.browser, 'AndyA', 'PUB101', 'PUB101')
         course_outline_page.visit()
 
-        self.record_update_subsection_in_course_outline(
+        self.record_update_section_in_course_outline(
             course_outline_page,
-            'Released',
             'Released',
             self.with_cache
         )

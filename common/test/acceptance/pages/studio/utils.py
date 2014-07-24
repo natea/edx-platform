@@ -2,6 +2,8 @@
 Utility methods useful for Studio page tests.
 """
 from bok_choy.promise import EmptyPromise
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 
 def click_css(page, css, source_index=0, require_notification=True):
@@ -104,6 +106,19 @@ def type_in_codemirror(page, index, text, find_prefix="$"):
     CodeMirror.signal(cm, "blur", cm);""".format(index=index, find_prefix=find_prefix)
     page.browser.execute_script(script, str(text))
 
+
+def set_input_value_and_save(page, css, value):
+    """
+    Sets the text field with given label (display name) to the specified value, and presses Save.
+    """
+    input_element = page.q(css=css).results[0]
+    # Click in the input to give it the focus
+    action = ActionChains(page.browser).click(input_element)
+    # Delete all of the characters that are currently there
+    for _x in range(0, len(input_element.get_attribute('value'))):
+        action = action.send_keys(Keys.BACKSPACE)
+    # Send the new text, then hit the enter key so that the change event is triggered).
+    action.send_keys(value).send_keys(Keys.ENTER).perform()
 
 def get_codemirror_value(page, index=0, find_prefix="$"):
     return page.browser.execute_script(
