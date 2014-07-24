@@ -26,13 +26,10 @@ class HelpersTestCase(CourseTestCase):
                              escaped_usage_key='i4x%3A//MITx/999/chapter/Week_1'
                          ))
 
-        # Verify sequential URL
+        # Verify no sequential URL
         sequential = ItemFactory.create(parent_location=chapter.location, category='sequential',
                                         display_name="Lesson 1")
-        self.assertEqual(xblock_studio_url(sequential),
-                         u'/course/MITx/999/Robot_Super_Course?show={escaped_usage_key}'.format(
-                             escaped_usage_key='i4x%3A//MITx/999/sequential/Lesson_1'
-                         ))
+        self.assertIsNone(xblock_studio_url(sequential))
 
         # Verify unit URL
         vertical = ItemFactory.create(parent_location=sequential.location, category='vertical',

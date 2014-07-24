@@ -53,12 +53,13 @@ class ContainerPageTestCase(StudioPageTestCase):
             ),
             expected_breadcrumbs=(
                 r'<a href="/course/{course}{section_parameters}" class="{classes}">\s*Week 1\s*</a>\s*'
-                r'<a href="/course/{course}{subsection_parameters}" class="{classes}">\s*Lesson 1\s*</a>\s*'
+                r'<span class="{span_classes}">\s*Lesson 1\s*</span>\s*'
                 r'<a href="/container/{unit}" class="{classes}">\s*Unit\s*</a>'
             ).format(
                 course=re.escape(unicode(self.course.id)),
                 unit=re.escape(unicode(self.vertical.location)),
                 classes='navigation-item navigation-link navigation-parent',
+                span_classes='navigation-item navigation-parent',
                 section_parameters=re.escape(u'?show=i4x%3A//MITx/999/chapter/Week_1'),
                 subsection_parameters=re.escape(u'?show=i4x%3A//MITx/999/sequential/Lesson_1'),
             ),
@@ -81,7 +82,7 @@ class ContainerPageTestCase(StudioPageTestCase):
                 ),
                 expected_breadcrumbs=(
                     r'<a href="/course/{course}{section_parameters}" class="{classes}">\s*Week 1\s*</a>\s*'
-                    r'<a href="/course/{course}{subsection_parameters}" class="{classes}">\s*Lesson 1\s*</a>\s*'
+                    r'<span class="{span_classes}">\s*Lesson 1\s*</span>\s*'
                     r'<a href="/container/{unit}" class="{classes}">\s*Unit\s*</a>\s*'
                     r'<a href="/container/{split_test}" class="{classes}">\s*Split Test\s*</a>'
                 ).format(
@@ -89,6 +90,7 @@ class ContainerPageTestCase(StudioPageTestCase):
                     unit=re.escape(unicode(self.vertical.location)),
                     split_test=re.escape(unicode(self.child_container.location)),
                     classes='navigation-item navigation-link navigation-parent',
+                    span_classes='navigation-item navigation-parent',
                     section_parameters=re.escape(u'?show=i4x%3A//MITx/999/chapter/Week_1'),
                     subsection_parameters=re.escape(u'?show=i4x%3A//MITx/999/sequential/Lesson_1'),
                 ),
