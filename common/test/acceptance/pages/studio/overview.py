@@ -14,9 +14,9 @@ class CourseOutlineItem(object):
     A mixin class for any :class:`PageObject` shown in a course outline.
     """
     BODY_SELECTOR = None
-    EDIT_BUTTON_SELECTOR = '.xblock-title .xblock-field-value-edit'
-    NAME_SELECTOR = '.xblock-title .xblock-field-value'
-    NAME_INPUT_SELECTOR = '.xblock-title .xblock-field-input'
+    EDIT_BUTTON_SELECTOR = '.xblock-field-value-edit'
+    NAME_SELECTOR = '.xblock-field-value'
+    NAME_INPUT_SELECTOR = '.xblock-field-input'
     NAME_FIELD_WRAPPER_SELECTOR = '.xblock-title .wrapper-xblock-field'
 
     def __repr__(self):
@@ -126,7 +126,7 @@ class CourseOutlineContainer(CourseOutlineItem):
         self.browser.execute_script("jQuery.fx.off = true;")
 
         def subsection_expanded():
-            add_button = self.q(css=self._bounded_selector('> .add-xblock-component a.add-button')).first.results
+            add_button = self.q(css=self._bounded_selector('.add-item a.button-new')).first.results
             return add_button and add_button[0].is_displayed()
 
         currently_expanded = subsection_expanded()
