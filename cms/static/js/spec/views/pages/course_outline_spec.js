@@ -82,12 +82,12 @@ define(["jquery", "js/spec_helpers/create_sinon", "js/spec_helpers/view_helpers"
             };
 
             expandItemsAndVerifyState = function(type) {
-                getItemHeaders(type).find('.ui-toggle-expansion').click();
+                getItemHeaders(type).find('i.ui-toggle-expansion').click();
                 verifyItemsExpanded(type, true);
             };
 
             collapseItemsAndVerifyState = function(type) {
-                getItemHeaders(type).find('.ui-toggle-expansion').click();
+                getItemHeaders(type).find('i.ui-toggle-expansion').click();
                 verifyItemsExpanded(type, false);
             };
 
