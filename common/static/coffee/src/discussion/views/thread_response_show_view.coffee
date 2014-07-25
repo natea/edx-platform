@@ -55,7 +55,7 @@ if Backbone?
 
     toggleEndorse: (event) ->
       event.preventDefault()
-      if not @model.can('can_endorse')
+      if not @model.canBeEndorsed()
         return
       $elem = $(event.target)
       url = @model.urlFor('endorse')

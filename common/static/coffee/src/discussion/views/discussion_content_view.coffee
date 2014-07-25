@@ -9,14 +9,10 @@ if Backbone?
   
     attrRenderer:
       endorsed: (endorsed) ->
-        if endorsed
-          @$(".action-endorse").show().addClass("is-endorsed")
-        else
-          if @model.get('ability')?.can_endorse
-            @$(".action-endorse").show()
-          else
-            @$(".action-endorse").hide()
-          @$(".action-endorse").removeClass("is-endorsed")
+        $endorseButton = @$(".action-endorse")
+        $endorseButton.toggleClass("is-clickable", @model.canBeEndorsed())
+        $endorseButton.toggleClass("is-endorsed", endorsed)
+        $endorseButton.toggle(endorsed || @model.canBeEndorsed())
 
       closed: (closed) ->
         return if not @$(".action-openclose").length
@@ -56,15 +52,6 @@ if Backbone?
       can_delete:
         enable: -> @$(".action-delete").closest("li").show()
         disable: -> @$(".action-delete").closest("li").hide()
-      can_endorse:
-        enable: ->
-          @$(".action-endorse").show().css("cursor", "auto")
-        disable: ->
-          @$(".action-endorse").css("cursor", "default")
-          if not @model.get('endorsed')
-            @$(".action-endorse").hide()
-          else
-            @$(".action-endorse").show()
       can_openclose:
         enable: -> @$(".action-openclose").closest("li").show()
         disable: -> @$(".action-openclose").closest("li").hide()
