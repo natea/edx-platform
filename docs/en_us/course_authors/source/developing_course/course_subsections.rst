@@ -191,10 +191,11 @@ hidden from students.
 Subsections and Grading
 *************************
 
-You set the assignment type for problems at the subsection level. This means
-that all problems within the subsection are graded and weighted as a single
-type.  For example, if you designate the assignment type for a subsection as
-**Homework**, then all problem types in that subsection are graded as homework.
+You :ref:`set the assignment type for problems at the subsection level<Set the
+Assignment Type and Due Date for a Subsection>`. This means that all problems
+within the subsection are graded and weighted as a single type.  For example,
+if you designate the assignment type for a subsection as **Homework**, then all
+problem types in that subsection are graded as homework.
 
 For more information, see :ref:`Establish a Grading Policy`.
 

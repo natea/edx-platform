@@ -11,8 +11,18 @@ outline.  See the following information about working with the course outline:
 * `Example of a Developed Course in the Outline`_
 * `Viewing the Course Organization as a Student`_
 * `Navigating the Course Outline`_
+* `Add Content in the Course Outline`_
 * `Reorganize the Course Outline`_
+* `Delete Content in the Course Outline`_
 * `The Course Outline User Interface`_
+  
+See the following chapters for information on working with different content
+levels in the outline:
+
+* :ref:`Developing Course Sections`
+* :ref:`Developing Course Subsections`
+* :ref:`Developing Course Units`
+* :ref:`Developing Course Components`
 
 ****************************
 Open the Course Outline
@@ -73,7 +83,17 @@ Expand/collapse
 View object details
 
 
+.. _Add Content in the Course Outline:
 
+************************************************
+Add Content in the Course Outline
+************************************************
+
+Add Sections
+
+Add subsections
+
+Add units
 
 .. _Reorganize the Course Outline:
 
@@ -81,7 +101,16 @@ View object details
 Reorganize the Course Outline
 ************************************************
 
-?????
+DRAG and DROP
+
+
+.. _Delete Content in the Course Outline:
+
+************************************************
+Delete Content in the Course Outline
+************************************************
+
+Delete button
 
 
 
