@@ -24,6 +24,8 @@ class CMSVideoBaseTest(UniqueCourseTest):
         """
         super(CMSVideoBaseTest, self).setUp()
 
+        from nose.tools import  set_trace
+        set_trace()
         self.video = VidoComponentPage(self.browser)
 
         # This will be initialized later
@@ -78,9 +80,17 @@ class CMSVideoBaseTest(UniqueCourseTest):
         # Visit Course Outline page
         self.outline.visit()
 
+        # from here is the important part
+        from nose.tools import set_trace
+        # set_trace()
+        from paver.easy import sh
+        sh("sudo wondershaper eth0 56 12")
+
         # Visit Unit page
         self.unit_page = self.outline.section('Test Section').subsection('Test Subsection').toggle_expand().unit(
             'Test Unit').go_to()
+
+        # set_trace()
 
         self.video.wait_for_video_component_render()
 
@@ -88,6 +98,7 @@ class CMSVideoBaseTest(UniqueCourseTest):
         """
         Install the course with required components and navigate to course unit page
         """
+
         self._install_course_fixture()
         self._navigate_to_course_unit_page()
 
