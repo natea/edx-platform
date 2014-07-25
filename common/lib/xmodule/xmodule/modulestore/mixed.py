@@ -105,6 +105,13 @@ class MixedModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase):
                         return store
 
         # return the first store, as the default
+        return self.default_modulestore
+
+    @property
+    def default_modulestore(self):
+        """
+        Return the default modulestore
+        """
         return self.modulestores[0]
 
     def _get_modulestore_by_type(self, modulestore_type):
@@ -212,7 +219,7 @@ class MixedModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase):
                 return candidate_key
 
         # Otherwise, return the key created by the default store
-        return self.modulestores[0].make_course_key(org, course, run)
+        return self.default_modulestore.make_course_key(org, course, run)
 
     def get_course(self, course_key, depth=0):
         """
