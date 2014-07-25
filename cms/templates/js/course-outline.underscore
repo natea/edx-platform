@@ -54,8 +54,8 @@ if (statusType === 'warning') {
 
     <div class="<%= xblockType %>-header">
         <% if (includesChildren) { %>
-            <h3 class="<%= xblockType %>-header-details expand-collapse <%= isCollapsed ? 'expand' : 'collapse' %> ui-toggle-expansion" title="<%= gettext('Collapse/Expand this Checklist') %>">
-                <i class="icon-caret-down icon"></i>
+            <h3 class="<%= xblockType %>-header-details expand-collapse <%= isCollapsed ? 'expand' : 'collapse' %>" title="<%= gettext('Collapse/Expand this Checklist') %>">
+                <i class="icon-caret-down icon ui-toggle-expansion"></i>
         <% } else { %>
             <h3 class="<%= xblockType %>-header-details">
         <% } %>
@@ -66,7 +66,7 @@ if (statusType === 'warning') {
                     </span>
                 <% } else { %>
                     <span class="wrapper-<%= xblockType %>-title wrapper-xblock-field incontext-editor is-editable" data-field="display_name" data-field-display-name="<%= gettext("Display Name") %>">
-                        <span class="<%= xblockType %>-title item-title xblock-field-value incontext-editor-value"><%= xblockInfo.get('display_name') %></span>
+                        <span class="<%= xblockType %>-title item-title xblock-field-value incontext-editor-value <% if (includesChildren) { %>ui-toggle-expansion<% } %>"><%= xblockInfo.get('display_name') %></span>
                     </span>
                 <% } %>
             </h3>
