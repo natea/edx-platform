@@ -20,18 +20,29 @@ Enable Content Experiments
 ****************************************
 
 To enable content experiments in your course, you add ``split_test`` to the
-``advanced_modules`` policy key.
+**Advanced Modules List** in Advanced Settings.
 
 .. note::  
   ``split_test`` is the internal edX Platform name for a content experiment.
 
 #. From the **Settings** menu, select **Advanced Settings**.
-#. In the **Advanced Settings** page, find the ``advanced_modules`` policy key.
-#. In the **Policy Value** field, add ``"split_test"``. 
+#. In the **Advanced Settings** page, find the **Advanced Modules List**.
+#. In the value field, add ``"split_test"``. 
    
-   Be sure that you use the double quotation marks around the value, and that
-   if you use multiple values for the key that they are separated by commas
+   Be sure that you use the double quotation marks around the value.
+
+   If you have multiple values, ensure that they are separated by commas
    (``,``).
+
+   For example:
+
+   .. code-block:: json
+     
+     [
+       "combinedopenended",
+       "peergrading",
+       "split_test"
+     ]
 
 #. At the bottom of the page, click **Save Changes**.
 
@@ -42,8 +53,8 @@ To enable content experiments in your course, you add ``split_test`` to the
 Overview of Group Configurations
 ****************************************
 
-Before you can create content experiments, you must specify group
-configurations.
+Before you can create content experiments, you must specify at least one group
+configuration for your course.
 
 A group configuration defines how many groups of students are in an experiment.
 You can have any number of group configurations in your course. When you create
@@ -60,7 +71,7 @@ group configuration that assigns your students to four groups.
 Assigning Students to Groups
 =============================
 
-The edX Platform assigns students to groups.
+The edX Platform assigns students to each group in a group configuration. 
 
 Group assignments are:
 
@@ -111,8 +122,10 @@ use a group configuration<View Experiments that Use a Group Configuration>`.
 Create a Group Configuration
 =============================
 
-#. In the **Group Configurations** page, click **New Group Configuration** or
-   **Add your first Group Configuration**. The following page opens:
+You can create a group configurations at any time.
+
+#. In the **Group Configurations** page, click **New Group Configuration**. The
+   following page opens:
 
   .. image:: ../Images/create-group-config.png
    :alt: Create a New Group Configuration page
@@ -122,14 +135,15 @@ Create a Group Configuration
    experiments. Students will not see the name.
 
 #. Optionally, enter a description for the new group configuration.
-#. Modify groups in the configuration as needed:
+#. By default, a new configuration already contains two groups. Modify the
+   names of those groups or add new groups as needed:
 
+  * Modify the group names as needed. You see group names in the unit page in
+    Studio; students do not see group names.
   * Click **Add another group** to include another group as part of the
     configuration.
   * Click the **X** to the right of an existing group to remove it from the
     configuration. Note that the configuration must have at least two groups.
-  * Modify the group names as needed. You see group names in the unit page in
-    Studio; students do not see group names.
 
 5. Click **Create** to save the new group configuration.
    
@@ -144,10 +158,12 @@ The group configuration is then listed in the page:
 Edit a Group Configuration
 =============================
 
-.. note:: 
+.. important:: 
   Before modifying groups within a group configuration that is currently used
   in a running course, review `Guidelines for Modifying Group
   Configurations`_.
+
+You can change the group configuration name at any time.
 
 #. In the **Group Configurations** page, hover over the group configuration and
    click **Edit**.
@@ -161,14 +177,8 @@ Edit a Group Configuration
     :alt: Edit a Group Configuration page
 
 #. Modify the name and description as needed.
-#. Modify groups in the configuration as needed:
-
-  * Click **Add another group** to include another group as part of the
-    configuration.
-  * Click the **X** to the right of an existing group to remove it from the
-    configuration. Note that the configuration must have at least two groups.
-  * Modify the group names as needed. You see group names in the unit page in
-    Studio; students do not see group names.
+#. Modify groups in the configuration as needed. See `Create a Group
+   Configuration` for details.
    
 4. Click **Save** to save your changes.
 
@@ -180,7 +190,6 @@ Delete a Group Configuration
 
 You can delete a group configuration that is not currently used by a content
 experiment.
-
 
 .. note:: 
  You cannot delete a group configuration that is used in a content experiment.
@@ -208,6 +217,8 @@ links to experiments that use the group configuration:
 .. image:: ../Images/group_configurations_experiments.png
  :alt: A Group Configuration with the experiments using it circled
 
+Click a link to go to the unit page that contains the experiment.
+
 .. _Guidelines for Modifying Group Configurations:
 
 *********************************************
@@ -216,6 +227,7 @@ Guidelines for Modifying Group Configurations
 
 Review these guidelines if you must modify a group configuration after a course
 starts. These guidelines apply for courses built in Studio or XML.
+
 
 ==================================
 Modifying a Group Configuration
@@ -226,9 +238,7 @@ After the course starts, **do not**:
 * Delete group configurations.
 
 * Change the ``id`` value of a group configuration.
-  
-You can add group configurations or change group configuration names at any
-time.
+
 
 =================
 Modifying Groups
