@@ -63,7 +63,7 @@ if Backbone?
       new_endorsed = not endorsed
       data = { endorsed: new_endorsed }
       endorsement = {
-        "username": user.get("username"),
+        "username": window.user.get("username"),
         "time": new Date().toISOString()
       }
       @model.set(
