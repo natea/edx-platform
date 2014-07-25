@@ -1,70 +1,66 @@
-.. _Testing Your Courseware:
+.. _Testing Your Course Content:
 
 ###########################
-Testing Your Courseware
+Testing Your Course Content
 ###########################
-
-.. "courseware" is a troubled term -- perhaps "course content"? also, to distinguish more from the beta testing chapter, perhaps something like "Ongoing Validation of Your Course"... 
 
 The way your course looks in Studio is not the way that students will see and
 experience it when it is live. To test the content that you add when you are
-building your course, you view and interact with your course from a student's
-point of view.
+building your course, you can view and interact with your course from a
+student's point of view.
 
-In Studio, you have options to:
+You can:
 
-* :ref:`Preview Your Course`
+* :ref:`Preview Course Content`
 * :ref:`View Your Live Course`
 
 For information about setting up a beta test for your course, see
 :ref:`Beta_Testing`.
 
-.. _Preview Your Course:
+.. _Preview Course Content:
 
-***********************
-Preview Your Course
-***********************
- 
-When you view your course using Preview mode, you see all the
-units of your course, regardless of whether they are set to Public or
-Private and regardless of whether the release dates have passed.
+*************************
+Preview Course Content
+*************************
 
-.. ^ set to Private %%%
+You preview course content before you publish it to test how it will look to
+students.
  
-Using Preview mode is the only way to see content that is set to Private
-*as a student would see it*.
+When you preview your course, you see the latest course content as configured
+in Studio. You see content in units in the state
+:ref:`Draft (Never Published)`, :ref:`Draft (Unpublished Changes)`, or
+:ref:`Unpublished (Staff Only)` while students can see only the last
+published version of a unit in the live course.
 
-.. ^ set to Private %%%
- 
-You can enter Preview mode in these ways.
- 
-* On any subsection page, click **Preview Drafts**.
+For example, you publish a unit with a video and discussion:
 
-  .. image:: ../Images/preview_draft.png
-   :width: 800
-   :alt: Image of a subsection with the Preview Drafts button circled
+IMAGE OF UNIT PAGE IN STUDIO
 
-.. image change needed? %%%
- 
-* On any unit page, click **Preview**.
- 
-  The following example shows the **Preview** button for a unit that
-  is set to Public.
- 
-  .. image:: ../Images/preview_public.png
-   :width: 800
-   :alt: Image of a public unit with the Preview button circled
- 
-.. image change needed? %%%
- 
-  The following example shows the **Preview** button for a unit that
-  is set to Private.
- 
-  .. image:: ../Images/preview_private.png
-   :width: 800
-   :alt: Image of a private unit with the Preview button circled
+Students see the same content in the LMS:
 
-.. ^ set to Private %%%
+IMAGE OF UNIT IN LMS
+
+You then decide to add a multiple choice question to the unit, but you do not
+yet publish the changes.
+
+IMAGE OF DRAFT UNIT - With PREVIEW button circled
+
+When you click **Preview Changes**,  you see the unit in the LMS with
+the multiple choice question:
+
+IMAGE OF PREVIEWED UNIT
+
+This preview shows how students will experience the unit after you
+:ref:`publish the change<Publish a Unit>`.
+
+In the live course, students continue to see the same content, without the
+multiple choice question, until you :ref:`publish the change<Publish a Unit>`.
+
+.. note:: 
+  **Preview Changes** in not available when the unit's state is
+  :ref:`Published`, because in this case the preview and live version are
+  exactly the same. You can view the live course to see the published content.
+
  
 .. _View Your Live Course:
 

@@ -116,6 +116,8 @@ As an course author, you work with units in the following states:
 * `Draft (Unpublished Changes)`_
 * `Unpublished (Staff Only)`_
 
+.. _Draft (Never Published):
+
 ========================
 Draft (Never Published)
 ========================
@@ -128,10 +130,12 @@ When you create a new unit and add components to it, the unit is in the state
 
 The unit does not appear in the ribbon for the subsection in the LMS. Students
 do not see a Draft (Never Published) unit. Though you do not see the unit in
-the LMS, you can :ref:`preview the unit<Preview a Unit>`.
+the LMS, you can :ref:`preview the unit<Preview Course Content>`.
 
 You must :ref:`publish the unit<Publish a Unit>` for it to be included in the
 LMS.
+
+.. _Published:
 
 ==========
 Published
@@ -147,6 +151,7 @@ The unit may or may not be visible to students, depending on the release date
 and whether or not you chose to hide the unit from students. For more
 information, see :ref:`Controlling Content Visibility`.
 
+.. _Draft (Unpublished Changes):
 
 ===========================
 Draft (Unpublished Changes)
@@ -161,10 +166,12 @@ Changes)**, as shown in the right panel:
 The unit as shown in the LMS does not contain your changes until you publish
 them; the LMS shows the last published version of the unit.
 
-You can :ref:`preview the changes to a unit<Preview a Unit>`.
+You can :ref:`preview the changes to a unit<Preview Course Content>`.
 
 You must :ref:`publish the changes to the unit<Publish a Unit>` for those
 changes to be live for students and in the LMS.
+
+.. _Unpublished (Staff Only):
 
 ===========================
 Unpublished (Staff Only)
