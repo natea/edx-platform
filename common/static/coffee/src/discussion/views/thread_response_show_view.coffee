@@ -71,11 +71,10 @@ if Backbone?
         "endorsement": if new_endorsed then endorsement else null
       )
       thread = @model.get("thread")
-      if thread.get("thread_type") == "question"
-        thread.set(
-          "endorsed_response_count",
-          thread.get("endorsed_response_count") + (if new_endorsed then 1 else -1)
-        )
+      thread.set(
+        "endorsed_response_count",
+        thread.get("endorsed_response_count") + (if new_endorsed then 1 else -1)
+      )
       @trigger "comment:endorse", not endorsed
       DiscussionUtil.safeAjax
         $elem: $elem

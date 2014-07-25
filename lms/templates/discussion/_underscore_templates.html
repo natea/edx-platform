@@ -277,11 +277,11 @@
             sr_text = "{unanswered_question}";
         }}
         %>""".format(
-            ## Translators: This is a description of a forum post type
+            ## Translators: This is a label for a Discussion forum thread
             discussion=escapejs(_("discussion")),
-            ## Translators: This is a description of a forum post type
+            ## Translators: This is a label for a Question forum thread with a marked answer
             answered_question=escapejs(_("answered question")),
-            ## Translators: This is a description of a forum post type
+            ## Translators: This is a label for a Question forum thread without a marked answer
             unanswered_question=escapejs(_("unanswered question"))
         )}
         <span class="sr">${"<%= sr_text %>"}</span>
