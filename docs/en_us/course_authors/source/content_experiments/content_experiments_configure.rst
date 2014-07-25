@@ -100,7 +100,12 @@ Configurations**. The **Group Configurations** page opens:
 .. image:: ../Images/group_configurations.png
  :alt: The Group Configurations page
 
-From this page you can create, edit, and delete group configurations. You can also view experiments that use a group configuration.
+From this page you can :ref:`create<Create a Group Configuration>`,
+:ref:`edit<Edit a Group Configuration>`, and :ref:`delete<Delete a Group
+Configuration>` group configurations. You can also :ref:`view experiments that
+use a group configuration<View Experiments that Use a Group Configuration>`.
+
+.. _Create a Group Configuration:
 
 =============================
 Create a Group Configuration
@@ -132,7 +137,9 @@ The group configuration is then listed in the page:
 
 .. image:: ../Images/group_configurations_one_listed.png
  :alt: The Group Configurations page with one group configuration
-   
+  
+.. _Edit a Group Configuration:
+
 =============================
 Edit a Group Configuration
 =============================
@@ -165,15 +172,28 @@ Edit a Group Configuration
    
 4. Click **Save** to save your changes.
 
+.. _Delete a Group Configuration:
+
 =============================
 Delete a Group Configuration
 =============================
 
-.. warning:: 
- Do not delete a group configuration that is used in the courseware after your
- course has started.
+You can delete a group configuration that is not currently used by a content
+experiment.
 
-STEPS TBP
+
+.. note:: 
+ You cannot delete a group configuration that is used in a content experiment.
+
+#. In the **Group Configurations** page, hover over the group configuration and
+   click the Delete icon. 
+
+  .. image:: ../Images/group-configuration-delete.png
+   :alt: Edit a Group Configuration page
+
+2. When prompted to confirm the deletion, click **Delete**.
+
+.. _View Experiments that Use a Group Configuration:
 
 ===============================================
 View Experiments that Use a Group Configuration
