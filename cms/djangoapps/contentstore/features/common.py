@@ -241,7 +241,7 @@ def create_unit_from_course_outline():
     The end result is the page where the user is editing the new unit.
     """
     css_selectors = [
-        '.outline-item-subsection .expand-collapse', '.outline-item-subsection .add-button'
+        '.outline-item-subsection .ui-toggle-expansion', '.outline-item-subsection .add-button'
     ]
     for selector in css_selectors:
         world.css_click(selector)
