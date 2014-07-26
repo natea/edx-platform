@@ -31,7 +31,10 @@ files before making them available to a partner institution. As a result, when
 you receive a data package (or other files) from the edX Analytics team, you
 must decrypt the files that it contains before you use them.
 
-The cryptographic processes of encrypting and decrypting data files require that you create a pair of keys: the public key in the pair is used to encrypt data, and the corresponding private key is used to decrypt any files that have been encrypted with the public key. 
+The cryptographic processes of encrypting and decrypting data files require
+that you create a pair of keys: the public key in the pair is used to encrypt
+data, and the corresponding private key is used to decrypt any files that have
+been encrypted with the public key.
 
 To create the keys needed for this encryption and decryption process, you use
 GNU Privacy Guard (GnuPG or GPG). Essentially, you install a cryptographic
@@ -180,8 +183,10 @@ contains your email address, your Access Key, and your Secret Key.
  .. image:: ../Images/AWS_Credentials.png
   :alt: A csv file, open in Notepad, with the Access Key value and the Secret Key value underlined
 
+.. _Access Amazon S3:
+
 ****************************************************************
-Access Amazon S3 and Download Data Packages
+Access Amazon S3
 ****************************************************************
 
 To connect to Amazon S3, you must have your decrypted credentials. You may want
@@ -193,36 +198,17 @@ Browser. Alternatively, you can use the `AWS Command Line Interface`_.
 #. Select and install a third-party tool or interface to manage your S3
    account.
 
-#. Open your decrypted credentials.csv file. This file contains your AWS Access
-   Key and your AWS Secret Key.
+#. Open your decrypted ``credentials.csv`` file. This file contains your AWS
+   Access Key and your AWS Secret Key.
 
 #. Open the third-party tool. In most tools, you set up information about the
    S3 account and then supply your Access Key and your Secret Key to connect to
    that account. For more information, refer to the documentation for the tool
    that you selected.
 
-#. Access Amazon S3 and navigate to the **edx-course-data** bucket. In this
-   bucket, event logs are in a file named {organization}-{date}.zip.
-   See :ref:`Package`. A new event log file is available every day.
-
-#. Download the file. 
-
-#. Use your private key to decrypt the .gpg file. See `Decrypt an Encrypted
-   File`_.
-
-#. Extract the log file from the compressed .gz file. 
-
-#. In Amazon S3, navigate to the edX **course-data** bucket. This bucket
-   contains the database data files, which are compressed into a  are in a file
-   named {organization}-{date}.zip. See :ref:`Package`. A new database data
-   file is available each week.
-
-#. Download the file. 
-
-#. Extract the .gpg files from the compressed .zip file. 
-
-#. Use your private key to decrypt the .gpg files. See `Decrypt an Encrypted
-   File`_.
+   Data package files are in the edX **course-data** and
+   **edx-course-data** buckets. For information about the files that you
+   download from Amazon S3, see :ref:`Package`.
 
 .. _AWS Command Line Interface: http://aws.amazon.com/cli/
 

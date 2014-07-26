@@ -1,103 +1,255 @@
 .. _Package:
 
 ######################################
-
+Data Delivered in Data Packages
 ######################################
 
+For partners who are running courses on edx.org and edge.edx.org, edX regularly
+makes research data available for download from the Amazon S3 storage service.
+The *data package* that data czars download from Amazon S3 consists of a set of
+compressed and encrypted files that contain event logs and database snapshots
+for all of their organizations' edx.org and edge.edx.org courses.
 
+* :ref:`Data Package Files`
 
-#. Access Amazon S3 and navigate to the edX **course-data** bucket. For each
-   period that a data package is prepared for your organization, two files are
-   available.
+* :ref:`Amazon S3 Buckets and Directories`
 
-   Event tracking data is in a file named {date}-{organization}-tracking.tar.
-   Database data files are in a file named {organization}-{date}.zip.
+* :ref:`Download Data Packages from Amazon S3`
 
+* :ref:`Data Package Contents`
 
+.. _Data Package Files:
 
-************
-Introduction
-************
+**********************
+Data Package Files
+**********************
 
-EdX provides two types of research data to partners who are running classes on edx.org and edge.edx.org:
+A data package consists of files that contain event data and database data.
 
-    Log (event tracking) data
-    Database data, including student information
+.. note:: All file names include the date in {YYYY}-{MM}-{DD} format.
 
-To access log and database data packages, you download files from edX, then extract the information from those files for analysis, as described in :ref:`Decrypt an Encrypted File`.
+============
+Event Data
+============
 
-************************
-Event Tracking Data
-************************
+The ``{org}-{site}-events-{date}.log.gz.gpg`` file contains a daily log of
+course events. A separate file is available for courses running on edge.edx.org
+(with "edge" for the {site} in the file name) and on edx.org (with "edx" for
+{site}).
 
-The edX platform gathers tracking information on almost every interaction of
-every student. For details about collected information, see :ref:`Tracking
-Logs`.
+For a partner organization named UniversityX, these daily files are identified by the organization name, the edX site name, and the date. For example, ``universityx-edge-2014-07-25.log.gz.gpg``.
 
+An alternative option for event data is available. The
+``{date}-{org}-tracking.tar`` file is available each week. It contains a
+cumulative log of events in all of an organization's courses. Data for courses
+running on both the edx.org and edge.edx.org. sites is included in this file.
 
-.. image:: ../Images/AWS_event_structure.png
-:alt: The AWS bucket, AWS directory hierarchy, and the components of the event file namewith color-coded call-outs
+.. remove this paragraph ^ when weekly file is removed.
 
-Event tracking data for your institution is collected in a file named: Date-Institution-tracking.tar. 
+For information about the contents of these files, see :ref:`Data Package
+Contents`.
 
-For example:  2013-10-27-UniversityA-tracking.tar
-
-When you extract the contents of this TAR file, sub-directories are created for each edX server that the course is running on.  For example, you may see the following sub-directories:
-
-    prod-edxapp-003
-    prod-edxapp-004
-    prod-edxapp-005
-
-Each of these sub-directories contains a file of tracking data for each day. The TAR file is cumulative; that is, it contains files for all previous days your course was running on that server.
-
-The filename format for event tracking data files is: Date_Institution.log.gpg.
-
-For example: 2013-10-22_UniversityA.log.gpg.
-
-You must decrypt these files. See :ref:`Decrypt an Encrypted File`.
-
-Note: Because a course runs on multiple servers, during analysis you must combine events from each server to get a complete picture of course activity.
-
-************************
+==================
 Database Data
-************************
+==================
 
-Database data files are collected in a ZIP file named:  Institution-Date.zip
+The ``{org}-{date}.zip`` file contains views on database tables. A new file is
+available each week. Database data as of the time of the export, for all of an
+organization's courses on both the edx.org and edge.edx.org. sites, is included
+in this file.
 
-For example: UniversityA-2013-10-27.zip
+For a partner organization named UniversityX, each weekly file is identified by
+the organization name and its extraction date: for example,
+``universityx-2013-10-27.zip``.
 
-When you extract the contents of this ZIP file, files are placed in the same directory as the ZIP file. 
+For information about the contents of this file, see :ref:`Data Package
+Contents`.
 
-The filename format of extracted files is: institution-course-date-data_type-server-analytics.sql.gpg
+.. _Amazon S3 Buckets and Directories:
 
-For example: UniversityA-Physics101-2013_user_id_map-prod-analytics.sql.gpg
+********************************************
+Amazon S3 Buckets and Directories
+********************************************
 
-You must decrypt these files. See :ref:`Decrypt an Encrypted File`.
+Data package files are located in two different buckets on Amazon S3:
 
-AWS bucket
+* The **edx-course-data** bucket contains the daily
+  ``{org}-{site}-events-{date}.log.gz.gpg`` files of course event data.
+  
+* The **course-data** bucket contains the weekly ``{date}-{org}-tracking.tar``
+  file of cumulative course event data and the weekly ``{org}-{date}.zip``
+  database snapshot.
 
-====================
-Database Data Files
-====================
+.. revise this paragraph ^ when weekly event file is removed.
 
-The data files are views on database tables used by the edX Learning Management System.
+For information about accessing Amazon S3, see :ref:`Access Amazon S3`.
 
-The following table describes the types of data files that edX delivers.
-Type	Filename Format	Description	
-Authorized Users	Institution-Course-Date-auth_user-Server-analytics.sql.gpg	Information about users authorized to access the course. See the auth_user table
+.. _Download Data Packages from Amazon S3:
 
-Authorized User Profiles	Institution-Course-Date-auth_userprofile-Server-analytics.sql.gpg	Information about student demographics.	auth_userprofile table
+****************************************************************
+Download Data Packages from Amazon S3
+****************************************************************
 
-Generated Certificates	Institution-Course-Date-certificates_generatedcertificate-Server-analytics.sql.gpg	Certificate status for graded students after course completion.	certificates_generatedcertificates table
+#. Connect to Amazon S3 using a third-party tool or the AWS Command Line
+   Interface. For information about connecting to Amazon S3, see :ref:`Access
+   Amazon S3`.
 
-Courseware	Institution-Course-Date-courseware_studentmodule-Server-analytics.sql.gpg	Information about courseware state for each student. There is a separate row for each (UNIT?) the course. For courses that do not have any records in this table no file is produced.	courseware_studentmodule table
+#. To download daily event files, you navigate to the **edx-course-data**
+   bucket, and then through this directory structure to locate the files you
+   want to download:
 
-Forums	Institution-Course-Date-Server.mongo.gpg	Course discussion forum data.	Discussion forum data
+   ``{org}/{site}/events/{year}``
 
-Course Enrollment	Institution-Course-Date-student_courseenrollment-Server-analytics.sql.gpg	Information about students enrolled in the course, enrollment status, and type of enrollment.	student_courseenrollment table
+   The event logs in the ``{year}`` directory are in compressed, encrypted
+   files named ``{org}-{site}-events-{date}.log.gz.gpg``.
 
-User IDs	Institution-Course-Date-user_id_map-Server-analytics.sql.gpg	A mapping of user IDs and obfuscated IDs used in surveys.	user_id_map table
+3. Download the ``{org}-{site}-events-{date}.log.gz.gpg`` file.
 
-Wiki articles	Institution-Course-Date-wiki_article-Server-analytics.sql.gpg	Course wiki data.	Wiki data
+   If your organization has courses running on both edx.org and edge.edx.org,
+   separate log files are available for the "edx" site and the "edge" site.
+   Repeat this step to download the file for the other site.
 
+4. To download a database data file, navigate to the edX **course-data**
+   bucket. This bucket contains ``{org}-{date}.zip`` files, which are
+   available each week. 
 
+#. Download the ``{org}-{date}.zip`` file. 
+
+#. To download a cumulative weekly event file, return to the **course-data**
+   bucket. This bucket contains the ``{date}-{org}-tracking.tar`` files, which
+   are available each week.
+
+.. remove this step ^ when weekly event logs are no longer available
+
+.. _AWS Command Line Interface: http://aws.amazon.com/cli/
+
+.. _Data Package Contents:
+
+**********************
+Data Package Contents
+**********************
+
+After you download your data package files, you must extract and decrypt the
+contents. Each of the files you download contains one or more files of research
+data.
+
+============================================================
+Extracted Contents of ``{org}-{site}-events-{date}.gpg``
+============================================================
+
+The ``{org}-{site}-events-{date}.gpg`` file contains event data for a single
+day. After you download a ``{org}-{site}-events-{date}.gpg`` file for your
+institution, you:
+
+#. Use your private key to decrypt the downloaded .gpg file. See :ref:`Decrypt
+   an Encrypted File`.
+
+#. Extract the log file from the compressed .gz file. The result is a single
+   file named ``{org}-{site}-events-{date}.log``.
+
+.. remove this section v through the next note when weekly file is removed
+
+============================================================
+Extracted Contents of ``{date}-{org}-tracking.tar``
+============================================================
+
+The ``{date}-{org}-tracking.tar`` file contains cumulative event data for all
+of an organization's courses, running on both edx.org and edge.edx.org.
+
+.. note:: Over time, these files can become very large (25GB and larger). In some environments, problems such as session timeouts can occur when you download them. 
+
+After you download the ``{date}-{org}-tracking.tar`` file for your
+institution, you:
+
+#. Extract the contents of the downloaded .tar file. 
+   
+   To balance the load of traffic to edX courses, every course is served by
+   multiple edX servers. When you extract the contents of this file, a separate
+   subdirectory is created for events that took place on each edX server.
+
+   For example, subdirectories with these names can be created:
+
+   ``prod-edxapp-003``
+
+   ``prod-edxapp-004``
+
+   ``prod-edxapp-005``
+
+   Each of these directories contains an encrypted log file of event data for
+   every day that events occurred on that server. These event tracking data
+   files are named ``{date}-{org}.log.gpg``.
+
+#. Use your private key to decrypt the extracted log files. See :ref:`Decrypt
+   an Encrypted File`.
+
+.. note:: During analysis, you must combine events from each server to get a complete picture of the activity in each course. 
+
+.. remove this section ^ when weekly file is removed
+
+============================================
+Extracted Contents of ``{org}-{date}.zip``
+============================================
+
+After you download the ``{org}-{date}.zip`` file for your
+institution, you:
+
+#. Extract the contents of the file. When you extract (or unzip) this file, all
+   of the files that it contains are placed in the same directory. All of the
+   extracted files end in ``.gpg``, which indicates that they are encrypted.
+
+#. Use your private key to decrypt the extracted files. See
+   :ref:`Decrypt an Encrypted File`.
+
+The result of extracting and decrypting the ``{org}-{date}.zip`` file is the
+following set of sql and mongo database files.
+
+``{org}-{course}-{date}-auth_user-{site}-analytics.sql``
+
+  Information about the users who are authorized to access the course. See
+  :ref:`auth_user`.
+
+``{org}-{course}-{date}-auth_userprofile-{site}-analytics.sql``
+
+  Demographic data provided by users during site registration. See
+  :ref:`auth_userprofile`.
+
+``{org}-{course}-{date}-certificates_generatedcertificate-{site}-analytics.sql``
+
+  The final grade and certificate status for students (populated after course
+  completion). See :ref:`certificates_generatedcertificate`.
+
+``{org}-{course}-{date}-courseware_studentmodule-{site}-analytics.sql``
+
+  The courseware state for each student, with a separate row for each piece of
+  course content that the student accesses. No file is produced for courses
+  that do not have any records in this table (for example, recently created
+  courses). See :ref:`courseware_studentmodule`.
+
+``{org}-{course}-{date}-student_courseenrollment-{site}-analytics.sql``
+
+  The enrollment status and type of enrollment selected by each student in the
+  course. See :ref:`student_courseenrollment`.
+
+``{org}-{course}-{date}-user_api_usercoursetag-{site}-analytics.sql``
+
+  Metadata that describes different types of student participation in the
+  course. See :ref:`user_api_usercoursetag`.
+
+``{org}-{course}-{date}-user_id_map-{site}-analytics.sql``
+
+   A mapping of user IDs to site-wide obfuscated IDs. See :ref:`user_id_map`.
+
+``{org}-{course}-{date}-{site}.mongo``
+
+  The content and characteristics of course discussion interactions. See
+  :ref:`Discussion Forums Data`.
+
+``{org}-{course}-{date}-wiki_article-{site}-analytics.sql``
+
+  Information about the articles added to the course wiki. See
+  :ref:`wiki_article`.
+
+``{org}-{course}-{date}-wiki_articlerevision-{site}-analytics.sql``
+
+  Changes and deletions affecting course wiki articles. See
+  :ref:`wiki_articlerevision`.
