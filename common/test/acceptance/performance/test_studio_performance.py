@@ -6,7 +6,7 @@ from ..pages.studio.auto_auth import AutoAuthPage
 from ..pages.studio.login import LoginPage
 from ..pages.studio.overview import CourseOutlinePage
 from ..pages.studio.signup import SignupPage
-from ..pages.studio.utils import set_input_value_and_save
+from ..pages.studio.utils import click_css, set_input_value_and_save
 
 class StudioPagePerformanceTestExample(WebAppPerfReport):
     """
@@ -98,7 +98,7 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         course_outline_unit.go_to()
         self.save_har(har_name)
 
-    def record_update_section_in_course_outline(self, course_outline_page, original_section_title, with_cache):
+    def record_update_section_in_course_outline(self, course_outline_page, original_section_title):
         """
         Produce a performance report for updating a section display name on the
         outline page.
@@ -107,7 +107,7 @@ class StudioPagePerformanceTest(WebAppPerfReport):
 
         # Since this method is called twice, the section we want
         # will either have its original name or our edited one.
-        if with_cache:
+        if self.with_cache:
             section = course_outline_page.section(edited_section_title)
         else:
             section = course_outline_page.section(original_section_title)
@@ -119,32 +119,37 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         self.new_page(har_name)
         course_outline_page.click_section_name()
         course_outline_page.wait_for_element_visibility('h3.section-name.is_editable > form', 'wait for form to appear')
-        if with_cache:
+        if self.with_cache:
             set_input_value_and_save(section, section._bounded_selector('h3.section-name.is_editable > form > input'), original_section_title)
         else:
             set_input_value_and_save(section, section._bounded_selector('h3.section-name.is_editable > form > input'), edited_section_title)
         course_outline_page.wait_for_ajax()
         self.save_har(har_name)
 
-    def record_publish_unit_page(self, course_outline_unit, course_info):
+    def record_publish_unit_page(self, course_outline_page, section_title, subsection_title, original_unit_title):
         """
         Produce a performance report for publishing an edited unit container page.
         """
+        edited_unit_title = 'Edited Unit Title'
+        if self.with_cache:
+            course_outline_unit = course_outline_page.section(section_title).subsection(subsection_title).toggle_expand().unit(edited_unit_title)
+        else:
+            course_outline_unit = course_outline_page.section(section_title).subsection(subsection_title).toggle_expand().unit(original_unit_title)
+
         unit_page = course_outline_unit.go_to()
         unit_page.edit_draft()
-        component = unit_page.components[0]
-        component.q(css=component._bounded_selector('a.delete-button')).click()
-        unit_page.wait_for_element_presence('a.button.action-primary', 'Confirm deletion button is present')
-        unit_page.q(css='a.button.action-primary').click()
-        unit_page.wait_for_ajax()
+
+        if self.with_cache:
+            set_input_value_and_save(unit_page, '#unit-display-name-input', original_unit_title)
+        else:
+            set_input_value_and_save(unit_page, '#unit-display-name-input', edited_unit_title)
 
         har_name = 'master/UnitPagePublish_{org}_{course}'.format(
-            org=course_info['course_org'],
-            course=course_info['course_num']
+            org=course_outline_page.course_info['course_org'],
+            course=course_outline_page.course_info['course_num']
         )
         self.new_page(har_name)
-        unit_page.q(css='a.publish-draft').click()
-        unit_page.wait_for_ajax()
+        click_css(unit_page, 'a.publish-draft', require_notification=False)
         self.save_har(har_name)
 
     @with_cache
@@ -171,8 +176,7 @@ class StudioPagePerformanceTest(WebAppPerfReport):
 
         self.record_update_section_in_course_outline(
             course_outline_page,
-            'How to Navigate the Course',
-            self.with_cache
+            'How to Navigate the Course'
         )
 
     @with_cache
@@ -185,8 +189,7 @@ class StudioPagePerformanceTest(WebAppPerfReport):
 
         self.record_update_section_in_course_outline(
             course_outline_page,
-            'Released',
-            self.with_cache
+            'Released'
         )
 
     @with_cache
@@ -230,9 +233,13 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         section_title = 'Lecture 1 - Doing the Right Thing'
         subsection_title = 'Discussion Prompt: Ethics of Torture'
         unit_title = subsection_title
-        course_outline_unit = course_outline_page.section(section_title).subsection(subsection_title).toggle_expand().unit(unit_title)
 
-        self.record_publish_unit_page(course_outline_unit, course_outline_page.course_info)
+        self.record_publish_unit_page(
+            course_outline_page,
+            section_title,
+            subsection_title,
+            unit_title
+        )
 
     @with_cache
     def test_pub101_publish_unit_page(self):
@@ -245,6 +252,10 @@ class StudioPagePerformanceTest(WebAppPerfReport):
         section_title = 'Released'
         subsection_title = 'Released'
         unit_title = subsection_title
-        course_outline_unit = course_outline_page.section(section_title).subsection(subsection_title).toggle_expand().unit(unit_title)
 
-        self.record_publish_unit_page(course_outline_unit, course_outline_page.course_info)
+        self.record_publish_unit_page(
+            course_outline_page,
+            section_title,
+            subsection_title,
+            unit_title
+        )
