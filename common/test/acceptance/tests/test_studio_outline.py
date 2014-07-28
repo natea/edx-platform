@@ -51,7 +51,7 @@ class CourseOutlineTest(StudioCourseTest):
         )
 
 
-class ClassName(CourseOutlineTest):
+class EditingSectionsTest(CourseOutlineTest):
     """
     Feature: Editing Release date, Due date and grading type.
     """
@@ -72,7 +72,8 @@ class ClassName(CourseOutlineTest):
             And I click save button on the modal
             Then I see release date, due date and grading policy of subsection in course outline
         """
-        subsection = self.outline.section(SECTION_NAME).subsection(SUBSECTION_NAME)
+        self.course_outline_page.visit()
+        subsection = self.course_outline_page.section(SECTION_NAME).subsection(SUBSECTION_NAME)
 
         # Verify that Release date visible by default
         self.assertTrue(subsection.release_date)
@@ -116,7 +117,8 @@ class ClassName(CourseOutlineTest):
             And I click save button on the modal
             Then I see release date of section in course outline
         """
-        section = self.outline.section(SECTION_NAME)
+        self.course_outline_page.visit()
+        section = self.course_outline_page.section(SECTION_NAME)
         modal = section.edit()
 
         # Verify that Release date visible by default
@@ -157,9 +159,9 @@ class ClassName(CourseOutlineTest):
         """
         self.progress_page.visit()
         self.assertEqual(u'Practice', self.progress_page.grading_formats[0])
-        self.outline.visit()
+        self.course_outline_page.visit()
 
-        subsection = self.outline.section(SECTION_NAME).subsection(SUBSECTION_NAME)
+        subsection = self.course_outline_page.section(SECTION_NAME).subsection(SUBSECTION_NAME)
         modal = subsection.edit()
         # Set new values
         modal.policy = 'Lab'
@@ -678,9 +680,10 @@ class DefaultStatesContentTest(CourseOutlineTest):
         self.course_outline_page.view_live()
         courseware = CoursewarePage(self.browser, self.course_id)
         courseware.wait_for_page()
-        self.assertEqual(courseware.num_xblock_components, 2)
-        self.assertEqual(courseware.xblock_component_type(0), 'html')
-        self.assertEqual(courseware.xblock_component_type(1), 'discussion')
+        self.assertEqual(courseware.num_xblock_components, 3)
+        self.assertEqual(courseware.xblock_component_type(0), 'problem')
+        self.assertEqual(courseware.xblock_component_type(1), 'html')
+        self.assertEqual(courseware.xblock_component_type(2), 'discussion')
 
 
 class UnitNavigationTest(CourseOutlineTest):
