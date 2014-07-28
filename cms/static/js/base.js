@@ -95,10 +95,6 @@ domReady(function() {
 
     $('.sync-date').bind('click', syncReleaseDate);
 
-    // section date setting
-    $('.set-publish-date').bind('click', setSectionScheduleDate);
-    $('.edit-section-start-cancel').bind('click', cancelSetSectionScheduleDate);
-
     IframeUtils.iframeBinding();
 });
 
@@ -250,18 +246,6 @@ function hideNotification(e) {
 function hideAlert(e) {
     (e).preventDefault();
     $(this).closest('.wrapper-alert').removeClass('is-shown');
-}
-
-function setSectionScheduleDate(e) {
-    e.preventDefault();
-    $(this).closest("h4").hide();
-    $(this).parent().siblings(".datepair").show();
-}
-
-function cancelSetSectionScheduleDate(e) {
-    e.preventDefault();
-    $(this).closest(".datepair").hide();
-    $(this).parent().siblings("h4").show();
 }
 
     window.deleteSection = deleteSection;
