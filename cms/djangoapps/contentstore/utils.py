@@ -9,6 +9,8 @@ from pytz import UTC
 from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
+from django_comment_common.models import assign_default_role
+from django_comment_common.utils import seed_permissions_roles
 
 from xmodule.contentstore.content import StaticContent
 from xmodule.modulestore import ModuleStoreEnum
@@ -16,6 +18,8 @@ from xmodule.modulestore.django import modulestore
 from xmodule.modulestore.exceptions import ItemNotFoundError
 from opaque_keys.edx.keys import UsageKey, CourseKey
 from student.roles import CourseInstructorRole, CourseStaffRole
+from student.models import CourseEnrollment
+from student import auth
 
 
 log = logging.getLogger(__name__)
@@ -24,6 +28,42 @@ log = logging.getLogger(__name__)
 OPEN_ENDED_PANEL = {"name": _("Open Ended Panel"), "type": "open_ended"}
 NOTES_PANEL = {"name": _("My Notes"), "type": "notes"}
 EXTRA_TAB_PANELS = dict([(p['type'], p) for p in [OPEN_ENDED_PANEL, NOTES_PANEL]])
+
+
+def add_instructor(course_id, requesting_user, new_instructor):
+    """
+    Adds given user as instructor and staff to the given course,
+    after verifying that the requesting_user has permission to do so.
+    """
+    # can't use auth.add_users here b/c it requires user to already have Instructor perms in this course
+    CourseInstructorRole(course_id).add_users(new_instructor)
+    auth.add_users(requesting_user, CourseStaffRole(course_id), new_instructor)
+
+
+def initialize_permissions(course_id, user_who_created_course):
+    """
+    Initializes a new course by enrolling the course creator as a student,
+    and initializing Forum by seeding its permissions and assigning default roles.
+    """
+    # seed the forums
+    seed_permissions_roles(course_id)
+
+    # auto-enroll the course creator in the course so that "View Live" will work.
+    CourseEnrollment.enroll(user_who_created_course, course_id)
+
+    # set default forum roles (assign 'Student' role)
+    assign_default_role(course_id, user_who_created_course)
+
+
+def remove_all_instructors(course_id):
+    """
+    Removes given user as instructor and staff to the given course,
+    after verifying that the requesting_user has permission to do so.
+    """
+    staff_role = CourseStaffRole(course_id)
+    staff_role.remove_users(*staff_role.users_with_role())
+    instructor_role = CourseInstructorRole(course_id)
+    instructor_role.remove_users(*instructor_role.users_with_role())
 
 
 def delete_course_and_groups(course_id, user_id):
@@ -39,10 +79,7 @@ def delete_course_and_groups(course_id, user_id):
         print 'removing User permissions from course....'
         # in the django layer, we need to remove all the user permissions groups associated with this course
         try:
-            staff_role = CourseStaffRole(course_id)
-            staff_role.remove_users(*staff_role.users_with_role())
-            instructor_role = CourseInstructorRole(course_id)
-            instructor_role.remove_users(*instructor_role.users_with_role())
+            remove_all_instructors(course_id)
         except Exception as err:
             log.error("Error in deleting course groups for {0}: {1}".format(course_id, err))
 
