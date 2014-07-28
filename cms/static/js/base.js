@@ -69,7 +69,7 @@ domReady(function() {
     });
 
     // general link management - new window/tab
-    $('a[rel="external"]').attr('title', gettext('This link will open in a new browser window/tab')).bind('click', linkNewWindow);
+    $('a[rel="external"]').attr('title', gettext('This link will open in a new browser window/tab')).attr('target', '_blank');
 
     // general link management - lean modal window
     $('a[rel="modal"]').attr('title', gettext('This link will open in a modal window')).leanModal({
