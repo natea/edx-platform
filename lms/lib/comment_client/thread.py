@@ -17,8 +17,7 @@ class Thread(models.Model):
         'at_position_list', 'children', 'type', 'highlighted_title',
         'highlighted_body', 'endorsed', 'read', 'group_id', 'group_name', 'pinned',
         'abuse_flaggers', 'resp_skip', 'resp_limit', 'resp_total', 'thread_type',
-        'endorsed_responses', 'endorsed_response_count', 'non_endorsed_responses',
-        'non_endorsed_resp_total',
+        'endorsed_responses', 'non_endorsed_responses', 'non_endorsed_resp_total',
     ]
 
     updatable_fields = [

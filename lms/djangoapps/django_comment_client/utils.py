@@ -373,8 +373,8 @@ def safe_content(content, course_id, is_staff=False):
         'courseware_title', 'courseware_url', 'unread_comments_count',
         'read', 'group_id', 'group_name', 'group_string', 'pinned', 'abuse_flaggers',
         'stats', 'resp_skip', 'resp_limit', 'resp_total', 'thread_type',
-        'endorsed_responses', 'endorsed_response_count', 'non_endorsed_responses',
-        'non_endorsed_resp_total', 'endorsement',
+        'endorsed_responses', 'non_endorsed_responses', 'non_endorsed_resp_total',
+        'endorsement',
     ]
 
     if (content.get('anonymous') is False) and ((content.get('anonymous_to_peers') is False) or is_staff):
