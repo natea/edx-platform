@@ -5,27 +5,15 @@ require(["domReady", "jquery", "underscore", "gettext", "js/views/feedback_notif
 {
 
 var $body;
-var $newComponentItem;
-var $changedInput;
-var $spinner;
-var $newComponentTypePicker;
-var $newComponentTemplatePickers;
-var $newComponentButton;
 
 domReady(function() {
     $body = $('body');
-
-    $newComponentItem = $('.new-component-item');
-    $newComponentTypePicker = $('.new-component');
-    $newComponentTemplatePickers = $('.new-component-templates');
-    $newComponentButton = $('.new-component-button');
-    $spinner = $('<span class="spinner-in-field-icon"></span>');
 
     $body.on('click', '.embeddable-xml-input', function() {
         $(this).select();
     });
 
-    $('body').addClass('js');
+    $body.addClass('js');
 
     $('.unit .item-actions .delete-unit-button').bind('click', deleteUnit);
     $('.new-unit-item').bind('click', createNewUnit);
