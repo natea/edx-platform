@@ -113,12 +113,6 @@ function smoothScrollTop(e) {
     });
 }
 
-function linkNewWindow(e) {
-    window.open($(e.target).attr('href'));
-    e.preventDefault();
-}
-
-
 function createNewUnit(e) {
     e.preventDefault();
 
