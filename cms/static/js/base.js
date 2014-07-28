@@ -248,6 +248,4 @@ function hideAlert(e) {
     $(this).closest('.wrapper-alert').removeClass('is-shown');
 }
 
-    window.deleteSection = deleteSection;
-
 }); // end require()
