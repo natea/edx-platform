@@ -37,10 +37,10 @@ define(['jquery', 'backbone', 'underscore', 'gettext', 'js/views/modals/base_mod
             },
 
             getTitle: function () {
-                if (this.model.isChapter()) {
-                    return gettext('Section Settings');
-                } else if (this.model.isSequential()) {
-                    return gettext('Subsection Settings');
+                if (this.model.isChapter() || this.model.isSequential()) {
+                    return _.template(
+                        gettext('<%= sectionName %> Settings'),
+                        {sectionName: this.model.get('display_name')});
                 } else {
                     return '';
                 }
