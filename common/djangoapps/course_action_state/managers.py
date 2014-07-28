@@ -94,11 +94,17 @@ class CourseActionUIStateManager(CourseActionStateManager):
         """
         self.update(id=id, updated_user=user, should_display=should_display)
 
-    def find_all_for_display(self):
+    def find_all_for_display(self, filter_args=None, exclude_args=None):
         """
         Returns all entries that have the should_display field set to True for this Action.
         """
-        return self.filter(should_display=True, action=self.ACTION)
+        return self.filter(
+            should_display=True,
+            action=self.ACTION,
+            **(filter_args or {})
+        ).exclude(
+            **(exclude_args or {})
+        )
 
 
 class CourseRerunUIStateManager(CourseActionUIStateManager):
