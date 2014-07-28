@@ -238,7 +238,7 @@ Set the Assignment Type and Due Date for a Subsection
 
 For more information, see :ref:`Establish a Grading Policy`.
 
-
+.. _Set a Subsection Release Date:
 
 ********************************
 Set a Subsection Release Date
@@ -246,7 +246,9 @@ Set a Subsection Release Date
 
 
 
+For more information, see :ref:`Release Dates`.
 
+.. _Hide a Subsection from Students:
 
 ***********************************
 Hide a Subsection from Students

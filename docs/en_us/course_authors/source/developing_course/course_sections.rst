@@ -185,12 +185,17 @@ To edit a section name, click the Edit icon next to the section name. The name
 field becomes writable. Enter the new name and tab out of the field to save it.
 
 
+.. _Set a Section Release Date:
+
 ********************************
 Set a Section Release Date
 ********************************
 
 
+For more information, see :ref:`Release Dates`.
 
+
+.. _Hide a Section from Students:
 
 ********************************
 Hide a Section from Students

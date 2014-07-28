@@ -204,10 +204,10 @@ The following information summarizes whether or not students can see a unit.
   the last published version of the unit if the following conditions are met:
 
   * The release date for the containing section and subsection has passed. See
-    :ref:`Schedule Release Dates` for more information.
+    :ref:`Release Dates` for more information.
 
   * The unit was was not hidden from students. See
-    :ref:`Hide Content From Students` for more information.
+    :ref:`Content Hidden from Students` for more information.
 
 For more information, see :ref:`Controlling Content Visibility`.
 
@@ -369,6 +369,8 @@ changes in the LMS until you publish the unit again.
 
 If the unit status is `Draft (Never Published)`_, the **View Published
 Version** button is not enabled.
+
+.. _Hide a Unit from Students:
 
 ****************************
 Hide a Unit from Students

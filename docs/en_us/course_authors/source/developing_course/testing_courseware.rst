@@ -65,101 +65,114 @@ multiple choice question, until you :ref:`publish the change<Publish a Unit>`.
 .. _View Your Live Course:
 
 ******************************************
-Switch Between Studio and Your Live Course
+View Your Live Course
 ******************************************
 
+You can view your course in the LMS, as a student sees it, directly from
+Studio. You can see your course in `Staff View`_ or `Student View`_
+
 While you work in Studio, you can switch to your live course to see how your
-course appears to students. Because you are logged in as a course team member,
-when you switch to your live course you see the **Staff View**.
+course appears to students in two ways.
 
-  .. image:: ../Images/Live_Course_Staff_View.png
-   :width: 800
-   :alt: Image of the Courseware page in a live course with Staff View indicated at top right and a View Unit in Studio button
- 
-In **Staff View**:
+* From the outline page, click **View Live**.
+   
+   ADD IMAGE
 
-* You see all of the units that are set to **Public**, regardless of the
-  release dates of the containing section or subsection.
+* In a unit page, click **View Live**.
+   
+   ADD IMAGE 
 
-* You do not see units that are set to **Private**. To see Private units, you
-  must use Preview mode as described in :ref:`Preview Your Course`.
+=================
+Staff View
+=================
 
-.. ^ set to Private %%%
+When you log in as a course team member, you see see the course in the **Staff
+View**.
 
-* You can access the Instructor Dashboard, which has features and reports that
-  help you run your course.
+.. image:: ../Images/Live_Course_Staff_View.png
+ :alt: Image of the Courseware page in a live course with Staff View indicated
+     at top right and a View Unit in Studio button
 
-.. DOC-311 filed to add info about student vs. staff view 
-
-.. You can also change to **Student View**. In **Student View**, the release date settings for sections and subsections apply. You can still access the Instructor Dashboard, however. 
-
-.. To switch from **Staff View** to **Student View** and back again, click **Staff View** or **Student View**.
-
-When you view your live course in **Staff View**, you can execute tests to make
+When you view your course in **Staff View**, you can execute tests to make
 sure that your course works the way you intend. For example, members of the
 course team can work through the problems to verify that the correct answer
 gets a green check for correct, and that any answer other than the correct one
 gets a red X for incorrect.
-
-======================================
-Go to Your Live Course from Studio
-======================================
-
-To switch from Studio to your live course, click **View Live** on any of these
-pages:
-
-* The **My Courses** dashboard page.
  
-* The **Course Outline** page.
+In **Staff View**:
 
-  .. image:: ../Images/course_outline_view_live.png
-   :width: 800
-   :alt: Image of the course outline with the View Live button circled
+* You see all units in the state :ref:`Published`. For units in the state
+  :ref:`Draft (Unpublished Changes)` or :ref:`Unpublished (Staff Only)`, you
+  see the last published version of the unit. You see these units
+  regardless of the release dates of the containing section or subsection.
 
-.. image change needed? %%%
+* You do not see units that are in the state :ref:`Draft (Never Published)`. To
+  see these units, you must use Preview mode as described in :ref:`Preview
+  Course Content`.
+
+* You can access the Instructor Dashboard, which has features and reports that
+  help you run your course.
+
+=================
+Student View
+=================
+
+When viewing your course in the LMS, you can switch to student view, to see the
+content exactly how students will see it.
+
+To switch from **Staff View** to **Student View** and back again, click **Staff
+View** or **Student View** in the upper right corner.
+
+.. image:: ../Images/Live_Course_Student_View.png
+ :alt: Image of the Courseware page in a live course with Student View
+     indicated at top right
+
+In **Student View**:
+
+* You do not see units in sections or subsections that have not yet been
+  released.
+
+* If the section and subsection are released, you see units in the state
+  :ref:`Published`. For units in the state
+  :ref:`Draft (Unpublished Changes)`, you see the last published version of the
+  unit. 
+
+* You do not see units that are in the state :ref:`Draft (Never Published)` or
+  :ref:`Unpublished (Staff Only)`. To see these units, you must use Preview
+  mode as described in :ref:`Preview Course Content`.
+
+* You can access the Instructor Dashboard, which has features and reports that
+  help you run your course.
+
+
+*************************************
+Open Studio from Your Live Course
+*************************************
+
+When you are viewing your course as **Staff View**, you can open Studio
+directly.
  
-* Any Subsection page.
- 
-  .. image:: ../Images/subsection_view_live.png
-    :width: 800
-    :alt: Image of a subsection with the View Live button circled
-
-.. image change needed? %%%
+* In a unit page, click **View Unit in Studio**.
   
-* The Unit page, if the Unit is Public.
+  .. image:: ../Images/Live_Studio_from_LMS_Unit.png
+   :alt: The View Unit in Studio button in an LMS unit
  
-  .. image:: ../Images/unit_view_live.png
-     :width: 800
-     :alt: Image of a unit with the View Live button circled
-
-.. image change needed? %%%
-
-When you click **View Live**, the **Courseware** page or the corresponding
-subsection or unit page opens.
-
-====================================
-Go to Studio from Your Live Course
-====================================
-
-To switch from your live course to Studio, click **View {page} in Studio** on
-any of these pages:
- 
-* Any unit (shown in the :ref:`View Your Live Course` section above).
- 
-* The Instructor Dashboard. 
+* In the Instructor Dashboard, click **View Course in Studio** to open the
+  course outline.
  
   .. image:: ../Images/Live_Course_Instructor_Dashboard.png
-    :width: 800
-    :alt: Image of the Instructor Dashboard in a live course with a View Course in Studio button
+    :alt: Image of the Instructor Dashboard in a live course with a View Course
+        in Studio button
 
   For information about the tasks you can complete on the Instructor Dashboard,
   see :ref:`Running Your Course Index`.
  
-* The **Course Progress** page for a specified student. 
+* In the **Course Progress** page, click **View Grading in Studio** to open the
+  Grading page.
  
   .. image:: ../Images/Student_Progress.png
-     :width: 800
-     :alt: Image of the Course Progress page for a student with a View  Grading in Studio button
+     :alt: Image of the Course Progress page for a student with a View  Grading
+         in Studio button
 
   For information about checking a student's progress, see
   :ref:`Review_grades`.

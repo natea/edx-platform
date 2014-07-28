@@ -8,7 +8,7 @@ When you are done :ref:`Setting up your Course Index`, you are ready to build
 your course content.
 
 This chapter provides an outline of the steps involved in developing your
-course content, with links to more details.
+course content, with links to more details. See:
 
 * `Understanding Course Building Blocks`_
 * `Creating New Course Content`_
@@ -22,13 +22,19 @@ Understanding Course Building Blocks
 ************************************
 
 Before you begin, you should understand the building blocks of an edX course.
-See:
 
-* :ref:`Developing Your Course Outline`
-* :ref:`Developing Course Sections`
-* :ref:`Developing Course Subsections`
-* :ref:`Developing Course Units`
-* :ref:`Developing Course Components`
+* :ref:`The course outline<Developing Your Course Outline>` is the container
+  for all of your course content. The outline contains one or more sections.
+* :ref:`Course sections<Developing Course Sections>` are at the top level of
+  your course and typically represent a time period. A section contains one or
+  more subsections.
+* :ref:`Course subsections<Developing Course Subsections>` are parts of a
+  section, and usually represent a topic or other organizing principle. A
+  subsection contains one or more units.
+* :ref:`Course units <Developing Course Units>` are lessons in a subsection
+  that students view as single pages. A unit contains one or more components.
+* :ref:`Course components<Developing Course Components>` are objects within
+  units that contain your actual course content.
 
 .. _Creating New Course Content:
 
@@ -45,10 +51,12 @@ WORKFLOW DIAGRAM
 See:
 
 #. :ref:`Create a Section`
+#. :ref:`Set a Section Release Date`
 #. :ref:`Create a Subsection`
-#. :ref:`Schedule Release Dates`
+#. :ref:`Set a Subsection Release Date`
 #. :ref:`Create a Unit`
 #. :ref:`Add a Component`
+#. :ref:`Publish a Unit`
 
 
 .. _Making Course Content Visible to Students:
@@ -63,9 +71,9 @@ whether content at any level is explicitly hidden from students.
 
 See:
 
-* :ref:`Schedule Release Dates`
-* :ref:`Publish Units`
-* :ref:`Hide Content From Students`
+* :ref:`Release Dates`
+* :ref:`Unit State`
+* :ref:`Content Hidden from Students`
 
 
 .. _Revising Content:
@@ -74,12 +82,15 @@ See:
 Revising Content
 ****************************
 
-You can revise your course content at any time. When you reorganize sections and subsections, the new order is immediately visible to students. When you change a unit, or components within a unit, you must publish those changes to make them visible to students.
+You can revise your course content at any time. When you reorganize sections
+and subsections, the new order is immediately visible to students. When you
+change a unit, or components within a unit, you must publish those changes to
+make them visible to students.
 
 WORKFLOW DIAGRAM
 
 * :ref:`Reorganize the Course Outline`
-* :ref:`Reorganize Units`
+* :ref:`Edit a Unit`
 * :ref:`Add<Add a Component>`, :ref:`edit<Edit a Component>`, or
   :ref:`delete<Delete a Component>` components.
 * :ref:`Publish a Unit`

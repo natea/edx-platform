@@ -22,5 +22,5 @@ Index`.
    course_subsections
    course_units
    course_components
-   testing_courseware
    controlling_content_visibility
+   testing_courseware
