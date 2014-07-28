@@ -298,9 +298,6 @@ if Backbone?
     renderEditView: () ->
       @renderSubView(@editView)
 
-    getShowViewClass: () ->
-      return DiscussionThreadShowView
-
     createShowView: () ->
 
       if @editView?
@@ -308,8 +305,7 @@ if Backbone?
         @editView.$el.empty()
         @editView = null
 
-      showViewClass = @getShowViewClass()
-      @showView = new showViewClass(model: @model)
+      @showView = new DiscussionThreadShowView({model: @model, mode: @mode})
       @showView.bind "thread:_delete", @_delete
       @showView.bind "thread:edit", @edit
 

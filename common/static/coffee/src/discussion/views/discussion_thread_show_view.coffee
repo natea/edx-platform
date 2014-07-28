@@ -23,13 +23,18 @@ if Backbone?
     $: (selector) ->
       @$el.find(selector)
 
-    initialize: ->
+    initialize: (options) ->
       super()
+      @mode = options.mode or "inline"  # allowed values are "tab" or "inline"
+      if @mode not in ["tab", "inline"]
+        throw new Error("invalid mode: " + @mode)
       @model.on "change", @updateModelDetails
 
     renderTemplate: ->
       @template = _.template($("#thread-show-template").html())
-      @template(@model.toJSON())
+      context = @model.toJSON()
+      context.mode = @mode
+      @template(context)
 
     render: ->
       @$el.html(@renderTemplate())

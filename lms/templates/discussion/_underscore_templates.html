@@ -101,7 +101,7 @@
                   escapejs(_("(this post is about %(courseware_title_linked)s)"))
               )
       %>
-      ${'<% if (obj.courseware_url) { %>'}
+      ${'<% if (mode == "tab" && obj.courseware_url) { %>'}
           <div class="post-context">${'<%'}${js_block}${'%>'}</div>
       ${'<% } %>'}
 
