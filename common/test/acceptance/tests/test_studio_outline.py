@@ -1,5 +1,4 @@
 """
-<<<<<<< HEAD
 Acceptance tests for studio related to the outline page.
 """
 
@@ -24,7 +23,7 @@ class CourseOutlineTest(StudioCourseTest):
     Base class for all course outline tests
     """
 
-    COURSE_ID_SEPARATOR = "."
+    COURSE_ID_SEPARATOR = "/"
 
     def setUp(self):
         """
@@ -34,7 +33,6 @@ class CourseOutlineTest(StudioCourseTest):
         self.course_outline_page = CourseOutlinePage(
             self.browser, self.course_info['org'], self.course_info['number'], self.course_info['run']
         )
-        self.progress_page = ProgressPage(self.browser, self.course_id)
 
     def populate_course_fixture(self, course_fixture):
         """ Install a course with sections/problems, tabs, updates, and handouts """
@@ -157,8 +155,9 @@ class EditingSectionsTest(CourseOutlineTest):
             Then I visit progress page
             And I see that problem in subsection has grading type "Problem"
         """
-        self.progress_page.visit()
-        self.assertEqual(u'Practice', self.progress_page.grading_formats[0])
+        progress_page = ProgressPage(self.browser, self.course_id)
+        progress_page.visit()
+        self.assertEqual(u'Practice', progress_page.grading_formats[0])
         self.course_outline_page.visit()
 
         subsection = self.course_outline_page.section(SECTION_NAME).subsection(SUBSECTION_NAME)
@@ -167,9 +166,9 @@ class EditingSectionsTest(CourseOutlineTest):
         modal.policy = 'Lab'
         modal.save()
 
-        self.progress_page.visit()
+        progress_page.visit()
 
-        self.assertEqual(u'Problem', self.progress_page.grading_formats[0])
+        self.assertEqual(u'Problem', progress_page.grading_formats[0])
 
 
 class EditNamesTest(CourseOutlineTest):
