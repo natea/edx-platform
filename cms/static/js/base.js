@@ -86,15 +86,6 @@ domReady(function() {
     // tender feedback window scrolling
     $('a.show-tender').bind('click', smoothScrollTop);
 
-    $("#start_date, #start_time, #due_date, #due_time").change(autosaveInput).keyup(TriggerChangeEventOnEnter)
-    $('.sync-date, .remove-date').bind('click', autosaveInput);
-
-    // expand/collapse methods for optional date setters
-    $('.set-date').bind('click', showDateSetter);
-    $('.remove-date').bind('click', removeDateSetter);
-
-    $('.sync-date').bind('click', syncReleaseDate);
-
     IframeUtils.iframeBinding();
 });
 
@@ -127,26 +118,6 @@ function linkNewWindow(e) {
     e.preventDefault();
 }
 
-function syncReleaseDate(e) {
-    e.preventDefault();
-    $(this).closest('.notice').hide();
-    $("#start_date").val("");
-    $("#start_time").val("");
-}
-
-function autosaveInput(e) {
-    var self = this;
-    if (this.saveTimer) {
-        clearTimeout(this.saveTimer);
-    }
-
-    this.saveTimer = setTimeout(function() {
-        $changedInput = $(e.target);
-        self.saveTimer = null;
-    }, 500);
-}
-
-
 
 function createNewUnit(e) {
     e.preventDefault();
@@ -176,7 +147,6 @@ function deleteUnit(e) {
     e.preventDefault();
     _deleteItem($(this).parents('li.courseware-unit'), 'Unit');
 }
-
 
 function _deleteItem($el, type) {
     var confirm = new PromptView.Warning({
@@ -219,23 +189,6 @@ function _deleteItem($el, type) {
         }
     });
     confirm.show();
-}
-
-function showDateSetter(e) {
-    e.preventDefault();
-    var $block = $(this).closest('.due-date-input');
-    $(this).hide();
-    $block.find('.date-setter').show();
-}
-
-function removeDateSetter(e) {
-    e.preventDefault();
-    var $block = $(this).closest('.due-date-input');
-    $block.find('.date-setter').hide();
-    $block.find('.set-date').show();
-    // clear out the values
-    $block.find('.date').val('');
-    $block.find('.time').val('');
 }
 
 function hideNotification(e) {
