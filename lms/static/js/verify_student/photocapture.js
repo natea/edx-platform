@@ -329,6 +329,9 @@ $(document).ready(function() {
   analytics.pageview("Capture Face Photo");
   initSnapshotHandler(["photo_id", "face"], hasHtml5CameraSupport);
 
-  $('a[rel="external"]').attr('title', gettext('This link will open in a new browser window/tab')).attr('target', '_blank');
+  $('a[rel="external"]').attr({
+    title: gettext('This link will open in a new browser window/tab'),
+    target: '_blank'
+  });
 
 });
