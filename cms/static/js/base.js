@@ -86,20 +86,12 @@ domReady(function() {
     // tender feedback window scrolling
     $('a.show-tender').bind('click', smoothScrollTop);
 
-    // autosave when leaving input field
-    $body.on('change', '.subsection-display-name-input', saveSubsection);
-    $('.subsection-display-name-input').each(function() {
-        this.val = $(this).val();
-    });
     $("#start_date, #start_time, #due_date, #due_time").change(autosaveInput).keyup(TriggerChangeEventOnEnter)
     $('.sync-date, .remove-date').bind('click', autosaveInput);
 
     // expand/collapse methods for optional date setters
     $('.set-date').bind('click', showDateSetter);
     $('.remove-date').bind('click', removeDateSetter);
-
-    $('.delete-section-button').bind('click', deleteSection);
-    $('.delete-subsection-button').bind('click', deleteSubsection);
 
     $('.sync-date').bind('click', syncReleaseDate);
 
@@ -155,7 +147,6 @@ function syncReleaseDate(e) {
     $("#start_time").val("");
 }
 
-
 function autosaveInput(e) {
     var self = this;
     if (this.saveTimer) {
@@ -164,61 +155,10 @@ function autosaveInput(e) {
 
     this.saveTimer = setTimeout(function() {
         $changedInput = $(e.target);
-        saveSubsection();
         self.saveTimer = null;
     }, 500);
 }
 
-function saveSubsection() {
-    // Spinner is no longer used by subsection name, but is still used by date and time pickers on the right.
-    if ($changedInput && !$changedInput.hasClass('no-spinner')) {
-        $spinner.css({
-            'position': 'absolute',
-            'top': Math.floor($changedInput.position().top + ($changedInput.outerHeight() / 2) + 3),
-            'left': $changedInput.position().left + $changedInput.outerWidth() - 24,
-            'margin-top': '-10px'
-        });
-        $changedInput.after($spinner);
-        $spinner.show();
-    }
-
-    var locator = $('.subsection-body').data('locator');
-
-    // pull all 'normalized' metadata editable fields on page
-    var metadata_fields = $('input[data-metadata-name]');
-
-    var metadata = {};
-    for (var i = 0; i < metadata_fields.length; i++) {
-        var el = metadata_fields[i];
-        metadata[$(el).data("metadata-name")] = el.value;
-    }
-
-    // get datetimes for start and due, stick into metadata
-    _(["start", "due"]).each(function(name) {
-
-        var datetime = DateUtils(
-            document.getElementById(name+"_date"),
-            document.getElementById(name+"_time")
-        );
-        // if datetime is null, we want to set that in metadata anyway;
-        // its an indication to the server to clear the datetime in the DB
-        metadata[name] = datetime;
-    });
-
-    $.ajax({
-        url: ModuleUtils.getUpdateUrl(locator),
-        type: "PUT",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify({
-            'metadata': metadata
-        }),
-        success: function() {
-            $spinner.delay(500).fadeOut(150);
-            $changedInput = null;
-        }
-    });
-}
 
 
 function createNewUnit(e) {
@@ -250,15 +190,6 @@ function deleteUnit(e) {
     _deleteItem($(this).parents('li.courseware-unit'), 'Unit');
 }
 
-function deleteSubsection(e) {
-    e.preventDefault();
-    _deleteItem($(this).parents('li.courseware-subsection'), 'Subsection');
-}
-
-function deleteSection(e) {
-    e.preventDefault();
-    _deleteItem($(this).parents('section.courseware-section'), 'Section');
-}
 
 function _deleteItem($el, type) {
     var confirm = new PromptView.Warning({
