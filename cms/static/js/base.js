@@ -99,15 +99,6 @@ domReady(function() {
     $('.set-publish-date').bind('click', setSectionScheduleDate);
     $('.edit-section-start-cancel').bind('click', cancelSetSectionScheduleDate);
 
-    $body.on('change', '.edit-subsection-publish-settings .start-date', function() {
-        if ($('.edit-subsection-publish-settings').find('.start-time').val() == '') {
-            $('.edit-subsection-publish-settings').find('.start-time').val('12:00am');
-        }
-    });
-    $('.edit-subsection-publish-settings').on('change', '.start-date, .start-time', function() {
-        $('.edit-subsection-publish-settings').find('.save-button').show();
-    });
-
     IframeUtils.iframeBinding();
 });
 
