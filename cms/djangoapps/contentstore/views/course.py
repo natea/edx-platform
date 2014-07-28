@@ -253,21 +253,30 @@ def course_index(request, course_key):
 
     org, course, name: Attributes of the Location for the item to edit
     """
-    course_module = _get_course_module(course_key, request.user, depth=3)
-    lms_link = get_lms_link_for_item(course_module.location)
-    sections = course_module.get_children()
-    course_structure = _course_outline_json(request, course_key)
-    locator_to_show = request.REQUEST.get('show', None)
-    return render_to_response('course_outline.html', {
-        'context_course': course_module,
-        'lms_link': lms_link,
-        'sections': sections,
-        'course_structure': course_structure,
-        'initial_state': course_outline_initial_state(locator_to_show, course_structure) if locator_to_show else None,
-        'course_graders': json.dumps(
-            CourseGradingModel.fetch(course_key).graders
-        ),
-    })
+    import cProfile
+    import uuid
+    pr = cProfile.Profile()
+    pr.enable()
+    try:
+        course_module = _get_course_module(course_key, request.user, depth=3)
+        lms_link = get_lms_link_for_item(course_module.location)
+        sections = course_module.get_children()
+        course_structure = _course_outline_json(request, course_key)
+        locator_to_show = request.REQUEST.get('show', None)
+        return render_to_response('course_outline.html', {
+            'context_course': course_module,
+            'lms_link': lms_link,
+            'sections': sections,
+            'course_structure': course_structure,
+            'initial_state': course_outline_initial_state(locator_to_show, course_structure) if locator_to_show else None,
+            'course_graders': json.dumps(
+                CourseGradingModel.fetch(course_key).graders
+            ),
+        })
+    finally:
+        pr.disable()
+        pr.dump_stats("profiles/course_index{0}.profile".format(uuid.uuid4()))
+
 
 
 def course_outline_initial_state(locator_to_show, course_structure):
