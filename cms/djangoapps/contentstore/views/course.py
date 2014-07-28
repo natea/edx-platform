@@ -275,7 +275,7 @@ def course_index(request, course_key):
         })
     finally:
         pr.disable()
-        pr.dump_stats("profiles/course_index{0}.profile".format(uuid.uuid4()))
+        pr.dump_stats("profiles/course_index_no_user_lookup{0}.profile".format(uuid.uuid4()))
 
 
 
