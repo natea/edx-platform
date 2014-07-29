@@ -25,7 +25,8 @@ define(['jquery', 'backbone', 'underscore', 'gettext', 'js/views/modals/base_mod
                 modalName: 'edit-outline-item',
                 modalType: 'edit-settings',
                 addSaveButton: true,
-                modalSize: 'lg'
+                modalSize: 'lg',
+                viewSpecificClasses: 'confirm'
             }),
 
             initialize: function() {
