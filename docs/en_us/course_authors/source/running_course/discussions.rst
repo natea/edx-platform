@@ -31,13 +31,13 @@ sections:
 Overview
 ********************************
 
-Students and staff use course discussions to share ideas, exchange views, and
-consider different viewpoints. In a discussion, there are three hierarchical
-levels of interaction.
+Students and staff use course discussions to share ideas, exchange views,
+consider different viewpoints, and ask questions. In a discussion, there are
+three hierarchical levels of interaction.
 
 * A *post* is the first level of interaction. A post opens a new subject. Posts
   are often posed as questions, either to start a conversation or to surface an
-  issue that requires some action.
+  issue that requires some action. When you add a post, you categorize it as a **Question** or as a **Discussion**.  
 
 * A *response* is the second level of interaction. A response is a reply made
   directly to a post to provide a solution or continue the conversation.
@@ -77,8 +77,8 @@ Add Units With a Discussion Component
 ============================================
 
 Typically, all units are added during the design and creation of your course in
-Studio. To add a component to a unit, follow the instructions in :ref:`Working
-with Discussion Components`.
+Studio. To add a discussion component to a unit, follow the instructions in
+:ref:`Working with Discussion Components`.
 
 This type of discussion is subject to the release date of the section that
 contains it. Students cannot contribute to these discussions until that date.
@@ -229,13 +229,20 @@ body of a response or comment. Examples follow.
 Both your discussion team and your students can use tags like these to search
 the discussions more effectively.
 
+When a post is created, a category must be selected for it: either "question"
+or "discussion". Members of the discussion team should be careful when
+selecting the category for a post, and encourage students to do the same. See
+:ref:`Find Question Posts and Discussion Posts`.
+
+.. future: changing the category of a post, maybe resequence or separate out conventions vs. categories
+
 ========================
 Seed Discussions
 ========================
 
-To help students learn how to get the most of course discussions, and find the
-best discussion topic to use for their questions, you can seed discussions by
-adding posts before your course starts. Some examples follow.
+To help students learn how to get the most out of course discussions, and find
+the best discussion topic to use for their questions, you can seed discussions
+by adding posts before your course starts. Some examples follow.
 
 * In the General topic (which is included in every course by default), add an
   [INTRO] post to initiate a thread for student and staff introductions.
@@ -268,8 +275,8 @@ discussion.
      :alt: Image of the pin icon for discussion posts
 
 * Endorse a response. Endorsing a response indicates that it provides value to
-  the discussion, such as a correct answer to a question. Click the **check
-  mark** that displays at upper right of the response.
+  the discussion, or that it is the correct answer to a question. Click the
+  **check mark** that displays at upper right of the response.
 
     .. image:: ../Images/Endorse_Discussion.png
      :alt: Image of the Endorse button for discussion posts
@@ -279,10 +286,11 @@ discussion.
   further interaction by closing the post. Click the **Close** button that
   displays below the post to close it.
 
-* Provide post/response/comment guidelines. A set of :ref:`Guidance for
-  Discussion Moderators` or a post in a course-wide discussion topic (such
-  as **General**) can provide guidance about when to start a new thread by
-  adding a post, responding to an existing post, or commenting on a response.
+* Provide post/response/comment guidelines. A set of :ref:`guidelines for
+  discussion moderators<Guidance for Discussion Moderators>` or a post in a
+  course-wide discussion topic (such as General) can provide guidance about
+  when to start a new thread by adding a post, responding to an existing post,
+  or commenting on a response.
 
 .. _Moderating_discussions:
 
@@ -320,8 +328,8 @@ introduce features of edX discussions.
 Develop a Positive Discussion Culture
 ========================================
 
-Monitors can cultivate qualities in their own discussion interactions to make
-their influence positive and their time productive.
+Discussion monitors can cultivate qualities in their own discussion
+interactions to make their influence positive and their time productive.
 
 * Encourage quality contributions: thank students whose posts have a positive
   impact and who answer questions.
@@ -351,6 +359,45 @@ their influence positive and their time productive.
 
 For a template that you can use to develop guidelines for your course
 moderators, see :ref:`Guidance for Discussion Moderators`.
+
+==========================================
+Find Question Posts and Discussion Posts
+==========================================
+
+When students create posts, they select the **Question** or **Discussion**
+category to indicate whether they are asking for concrete information or
+starting an open-ended conversation. On the **Discussion** page, a question
+mark image identifies posts that ask questions and a conversation bubble image
+identifies posts that start discussions.
+
+.. image:: ../Images/Post_types_in_list.png
+:alt: The list of posts with images identifying questions and discussions 
+
+.. image ^ needs to be replaced with better sample posts
+
+On the **Discussion** page, you can use these images to find any unanswered
+questions in the list of posts.
+
+When an answer is provided and endorsed for a question, a check mark image
+replaces the question mark image.
+
+.. future: filtering based on post type
+
+Provide, and Endorse, Answers to Questions 
+******************************************
+
+Providing the answer to a question and identifying an answer as correct is a
+two-step process.
+
+#. Any course participant, both students and staff, can respond to question
+   posts.
+
+#. Members of the discussion team and the student who asked the question can
+   endorse responsesand mark them as correct: Click the **check mark** that
+   displays at upper right of the response.
+
+   The question mark image on a question post is not replaced by the check mark
+   image until at least one response is endorsed.
 
 ==================
 Edit Messages 
