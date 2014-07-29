@@ -409,11 +409,23 @@ class CourseOutlineModal(object):
         return self.find_css("#start_date").first.attrs('value')[0]
 
     @release_date.setter
-    def release_date(self, day_number):
+    def release_date(self, date):
+        """
+        Date is "mm/dd/yyyy" string.
+        """
+        month, day, year = map(int, date.split('/'))
         self.click("#start_date")
-        self.page.q(css="a.ui-state-default").nth(day_number - 1).click()
+        if self.release_date:
+            current_month, current_year = map(int, self.release_date.split('/')[1:])
+        else: # use default timepicker values, which are current month and year
+            current_month, current_year = datetime.datetime.today().month, datetime.datetime.today().year
+        date_diff = 12 * (year - current_year) + month - current_month
+        selector = "a.ui-datepicker-{}".format('next' if date_diff > 0 else 'prev')
+        for i in xrange(abs(date_diff)):
+            self.page.q(css=selector).click()
+        self.page.q(css="a.ui-state-default").nth(day - 1).click()  # set day
         EmptyPromise(
-            lambda: self.release_date == u'1/{}/1970'.format(day_number),
+            lambda: self.release_date == u'{m}/{d}/{y}'.format(m=month, d=day, y=year),
             "Release date is updated in modal."
         ).fulfill()
 
@@ -422,12 +434,23 @@ class CourseOutlineModal(object):
         return self.find_css("#due_date").first.attrs('value')[0]
 
     @due_date.setter
-    def due_date(self, day_number):
-        now = datetime.datetime.now()
+    def due_date(self, date):
+        """
+        Date is "mm/dd/yyyy" string.
+        """
+        month, day, year = map(int, date.split('/'))
         self.click("#due_date")
-        self.page.q(css="a.ui-state-default").nth(day_number - 1).click()
+        if self.due_date:
+            current_month, current_year = map(int, self.due_date.split('/')[1:])
+        else: # use default timepicker values, which are current month and year
+            current_month, current_year = datetime.datetime.today().month, datetime.datetime.today().year
+        date_diff = 12 * (year - current_year) + month - current_month
+        selector = "a.ui-datepicker-{}".format('next' if date_diff > 0 else 'prev')
+        for i in xrange(abs(date_diff)):
+            self.page.q(css=selector).click()
+        self.page.q(css="a.ui-state-default").nth(day - 1).click()  # set day
         EmptyPromise(
-            lambda: self.due_date == '{}/{}/{}'.format(now.month, day_number, now.year),
+            lambda: self.due_date == u'{m}/{d}/{y}'.format(m=month, d=day, y=year),
             "Due date is updated in modal."
         ).fulfill()
 

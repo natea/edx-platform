@@ -92,12 +92,12 @@ class EditingSectionsTest(CourseOutlineTest):
         self.assertEqual(modal.policy, u'Not Graded')
 
         # Set new values
-        modal.release_date = 12
-        modal.due_date = 21
+        modal.release_date = '3/12/1972'
+        modal.due_date = '7/21/2014'
         modal.policy = 'Lab'
 
         modal.save()
-        self.assertIn(u'Released: Jan 12, 1970', subsection.release_date)
+        self.assertIn(u'Released: Mar 12, 1972', subsection.release_date)
         self.assertIn(u'Due date: Jul 21, 2014', subsection.due_date)
         self.assertIn(u'Policy: Lab', subsection.policy)
 
@@ -117,7 +117,6 @@ class EditingSectionsTest(CourseOutlineTest):
         """
         self.course_outline_page.visit()
         section = self.course_outline_page.section(SECTION_NAME)
-        modal = section.edit()
 
         # Verify that Release date visible by default
         self.assertTrue(section.release_date)
@@ -125,6 +124,7 @@ class EditingSectionsTest(CourseOutlineTest):
         self.assertFalse(section.due_date)
         self.assertFalse(section.policy)
 
+        modal = section.edit()
         # Verify fields
         self.assertTrue(modal.has_release_date())
         self.assertFalse(modal.has_due_date())
@@ -134,10 +134,10 @@ class EditingSectionsTest(CourseOutlineTest):
         self.assertEqual(modal.release_date, u'1/1/1970')
 
         # Set new value
-        modal.release_date = 14
+        modal.release_date = '5/14/1969'
 
         modal.save()
-        self.assertIn(u'Released: Jan 14, 1970', section.release_date)
+        self.assertIn(u'Released: May 14, 1969', section.release_date)
         # Verify that Due date and Policy are not present
         self.assertFalse(section.due_date)
         self.assertFalse(section.policy)
