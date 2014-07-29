@@ -19,11 +19,9 @@ an email message when we have updated the edX Course Staff Release Notes.
 edX Studio
 ***************************************
 
-* **A bug seems to have caused a problem in Internet Explorer - ? PR#4392 - check with Cale, Ned, DB, Christina**
+* In HTML components, users could not edit raw HTML in some versions of Internet Explorer. This problem has been fixed.
 
 * A new **Correct or Past Due** setting in Problem components allows students to see the answer to a problem only if the student has answered the problem correctly or the problem's due date has passed.
-
-
 
 ***************************************
 edX Learning Management System
@@ -33,7 +31,7 @@ edX Learning Management System
 
 * The appearance of the user profile area in the left pane of the student dashboard has changed.
 
-.. Changes are pretty slight (see screen shot in PR#4453: https://github.com/edx/edx-platform/pull/4453); may not want to include this in release notes
+.. The above changes are pretty subtle (see screen shot in PR#4453: https://github.com/edx/edx-platform/pull/4453); we may not want to include this in release notes.
 
 * The display name for an open response assessment now appears in the course ribbon. (ORA-51)
 
@@ -43,14 +41,16 @@ edX Analytics
 
 * New events have been created to capture account registrations, sign-ins, course enrollments, course unenrollments, enrollment mode changes, and enrollment mode upgrades. (WEB-874)
 
-* Reporting in the Google Analytics interface has been improved. (WEB-874)Í
+* Reporting in the Google Analytics interface has been improved. (WEB-874)
 
-.. More info about this?
+.. Should we add more specific info about this?
 
 
 **************************
 edX Documentation
 **************************
+
+.. I checked the change log, and the most recent changes listed appeared in last week's release notes.
 
 The following documentation is available:
 
@@ -59,12 +59,6 @@ The following documentation is available:
   Click **Help** in the upper-right corner of any page in the edX Studio
   user interface to access relevant sections in this guide. You can also
   download the entire guide as a PDF.
-
-  Recent changes include: 
-
-  * A set of `example messages to students <http://edx-partner-course-staff.readthedocs.org/en/latest/releasing_course/course_launching.html#example-messages-to-students>`_ is now available in the `Course Launching Activities`_ chapter.
-
-  * A `Grade Ranges and Certificates`_ section is now available in the `Establishing a Grading Policy`_ chapter.
        
 * `edX Research Guide`_
 
