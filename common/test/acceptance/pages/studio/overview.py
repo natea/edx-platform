@@ -408,16 +408,16 @@ class CourseOutlineModal(object):
     def release_date(self):
         return self.find_css("#start_date").first.attrs('value')[0]
 
-    @release_date.setter
-    def release_date(self, date):
+
+    def set_date(self, property_name, input_selector, date):
         """
-        Date is "mm/dd/yyyy" string.
+        Set `date` value to input pointed by `selector` and `property_name`.
         """
         month, day, year = map(int, date.split('/'))
-        self.click("#start_date")
-        if self.release_date:
-            current_month, current_year = map(int, self.release_date.split('/')[1:])
-        else: # use default timepicker values, which are current month and year
+        self.click(input_selector)
+        if getattr(self, property_name):
+            current_month, current_year = map(int, getattr(self, property_name).split('/')[1:])
+        else: # Use default timepicker values, which are current month and year.
             current_month, current_year = datetime.datetime.today().month, datetime.datetime.today().year
         date_diff = 12 * (year - current_year) + month - current_month
         selector = "a.ui-datepicker-{}".format('next' if date_diff > 0 else 'prev')
@@ -425,9 +425,16 @@ class CourseOutlineModal(object):
             self.page.q(css=selector).click()
         self.page.q(css="a.ui-state-default").nth(day - 1).click()  # set day
         EmptyPromise(
-            lambda: self.release_date == u'{m}/{d}/{y}'.format(m=month, d=day, y=year),
-            "Release date is updated in modal."
+            lambda: getattr(self, property_name) == u'{m}/{d}/{y}'.format(m=month, d=day, y=year),
+            "{} is updated in modal.".format(property_name)
         ).fulfill()
+
+    @release_date.setter
+    def release_date(self, date):
+        """
+        Date is "mm/dd/yyyy" string.
+        """
+        self.set_date('release_date', "#start_date", date)
 
     @property
     def due_date(self):
@@ -438,21 +445,7 @@ class CourseOutlineModal(object):
         """
         Date is "mm/dd/yyyy" string.
         """
-        month, day, year = map(int, date.split('/'))
-        self.click("#due_date")
-        if self.due_date:
-            current_month, current_year = map(int, self.due_date.split('/')[1:])
-        else: # use default timepicker values, which are current month and year
-            current_month, current_year = datetime.datetime.today().month, datetime.datetime.today().year
-        date_diff = 12 * (year - current_year) + month - current_month
-        selector = "a.ui-datepicker-{}".format('next' if date_diff > 0 else 'prev')
-        for i in xrange(abs(date_diff)):
-            self.page.q(css=selector).click()
-        self.page.q(css="a.ui-state-default").nth(day - 1).click()  # set day
-        EmptyPromise(
-            lambda: self.due_date == u'{m}/{d}/{y}'.format(m=month, d=day, y=year),
-            "Due date is updated in modal."
-        ).fulfill()
+        self.set_date('due_date', "#due_date", date)
 
     @property
     def policy(self):
