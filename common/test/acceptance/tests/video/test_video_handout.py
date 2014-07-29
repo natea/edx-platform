@@ -87,6 +87,7 @@ class VideoHandoutTest(CMSVideoBaseTest):
         And I save changes
         Then I do not see video button "handout"
         """
+        
         self._create_course_unit_with_handout('textbook.pdf')
 
         self.assertEqual(self.video.download_handout('application/pdf'), (True, True))
@@ -180,7 +181,7 @@ class VideoHandoutTest(CMSVideoBaseTest):
         """
 
         from nose.tools import set_trace
-        
+
         set_trace()
 
         self._create_course_unit_with_handout('asset.html', save_settings=False)

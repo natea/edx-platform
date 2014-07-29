@@ -78,6 +78,9 @@ class CMSVideoBaseTest(UniqueCourseTest):
         # Visit Course Outline page
         self.outline.visit()
 
+        from paver.easy import sh
+        sh("sudo wondershaper eth0 560 120")
+        
         # Visit Unit page
         self.unit_page = self.outline.section('Test Section').subsection('Test Subsection').toggle_expand().unit(
             'Test Unit').go_to()

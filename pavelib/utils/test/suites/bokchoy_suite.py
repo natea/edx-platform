@@ -72,6 +72,8 @@ class BokChoyTestSuite(TestSuite):
     def __exit__(self, exc_type, exc_value, traceback):
         super(BokChoyTestSuite, self).__exit__(exc_type, exc_value, traceback)
 
+        sh("sudo wondershaper clear eth0")
+
         msg = colorize('green', "Cleaning up databases...")
         print(msg)
 
