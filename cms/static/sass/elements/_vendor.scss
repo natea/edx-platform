@@ -9,7 +9,7 @@
   font-family: $f-sans-serif;
   font-size: 12px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-  z-index: 100000 !important;
+  z-index: 100999 !important;
 
   .ui-widget-header {
     background: $darkGrey;
@@ -61,7 +61,7 @@
 
 // JQUI timepicker
 .ui-timepicker-list {
-  z-index: 100000 !important;
+  z-index: 100999 !important;
 }
 
 //jQuery loupeAndLightbox Plugin
