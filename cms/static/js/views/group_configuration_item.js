@@ -7,8 +7,12 @@ define([
     'use strict';
     var GroupConfigurationsItem = BaseView.extend({
         tagName: 'section',
-        attributes: {
-            'tabindex': -1
+        attributes: function () {
+
+            return {
+                'id': this.model.get('id'),
+                'tabindex': -1
+            };
         },
 
         className: function () {
@@ -33,6 +37,10 @@ define([
                 this.view.remove();
             }
 
+            if (this.model.get('id') == window.location.hash.replace('#', '')) {
+                this.model.set('showGroups', true);
+            }
+
             if (this.model.get('editing')) {
                 this.view = new GroupConfigurationEdit({
                     model: this.model
@@ -43,9 +51,7 @@ define([
                 });
             }
 
-            this.$el.attr('id', this.model.get('id'));
             this.$el.html(this.view.render().el);
-            this.$el.focus();
 
             return this;
         }

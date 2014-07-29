@@ -17,6 +17,7 @@ function ($, _, gettext, BaseView, GroupConfigurationsList) {
             this.$('.content-primary').append(this.listView.render().el);
             this.addButtonActions();
             this.addWindowActions();
+            this.focusOnElement();
         },
 
         addButtonActions: function () {
@@ -38,6 +39,12 @@ function ($, _, gettext, BaseView, GroupConfigurationsList) {
                 return gettext(
                     'You have unsaved changes. Do you really want to leave this page?'
                 );
+            }
+        },
+
+        focusOnElement: function () {
+            if (window.location.hash) {
+                this.$(window.location.hash).focus();
             }
         }
     });

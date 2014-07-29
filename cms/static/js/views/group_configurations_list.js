@@ -38,12 +38,6 @@ define([
             return this;
         },
 
-        afterRender: function() {
-            if (window.location.hash) {
-                this.$(window.location.hash).focus();
-            }
-        },
-
         addNewItemView: function (model) {
             var view = new GroupConfigurationItemView({
                 model: model
