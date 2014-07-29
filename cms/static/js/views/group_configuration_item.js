@@ -43,6 +43,7 @@ define([
                 });
             }
 
+            this.$el.attr('id', this.model.get('id'));
             this.$el.html(this.view.render().el);
             this.$el.focus();
 

@@ -266,6 +266,7 @@ class SplitTestModule(SplitTestFields, XModule, StudioEditableModule):
         is_root = root_xblock and root_xblock.location == self.location
         active_groups_preview = None
         inactive_groups_preview = None
+        group_configuration_page_url = '/group_configurations/' + self.location.course_key.to_deprecated_string()
         if is_root:
             [active_children, inactive_children] = self.descriptor.active_and_inactive_children()
             active_groups_preview = self.studio_render_children(
@@ -281,6 +282,7 @@ class SplitTestModule(SplitTestFields, XModule, StudioEditableModule):
             'is_configured': is_configured,
             'active_groups_preview': active_groups_preview,
             'inactive_groups_preview': inactive_groups_preview,
+            'group_configuration_page_url': group_configuration_page_url,
         }))
         fragment.add_javascript_url(self.runtime.local_resource_url(self, 'public/js/split_test_author_view.js'))
         fragment.initialize_js('SplitTestAuthorView')
