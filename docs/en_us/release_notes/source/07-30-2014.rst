@@ -1,0 +1,88 @@
+###################################
+July 30, 2014
+###################################
+
+The following information reflects what is new in the edX Platform as of July 30,
+2014. See previous pages in this document for a history of changes.
+
+****************************************
+edX Release Announcements Mailing List
+****************************************
+
+These edX Course Staff Release Notes are always available and are updated with
+each release of the edX Platform on `edx.org`_ and `edX Edge`_.
+
+You can also sign up for the `edX Release Announcements mailing list`_ to get
+an email message when we have updated the edX Course Staff Release Notes.
+
+***************************************
+edX Studio
+***************************************
+
+* **A bug seems to have caused a problem in Internet Explorer - ? PR#4392 - check with Cale, Ned, DB, Christina**
+
+* A new **Correct or Past Due** setting in Problem components allows students to see the answer to a problem only if the student has answered the problem correctly or the problem's due date has passed.
+
+
+
+***************************************
+edX Learning Management System
+***************************************
+   
+* On the edX.org sign-up page, the **Public Username** field is now above the **Password** field. 
+
+* The appearance of the user profile area in the left pane of the student dashboard has changed.
+
+.. Changes are pretty slight (see screen shot in PR#4453: https://github.com/edx/edx-platform/pull/4453); may not want to include this in release notes
+
+* The display name for an open response assessment now appears in the course ribbon. (ORA-51)
+
+****************
+edX Analytics
+****************
+
+* New events have been created to capture account registrations, sign-ins, course enrollments, course unenrollments, enrollment mode changes, and enrollment mode upgrades. (WEB-874)
+
+* Reporting in the Google Analytics interface has been improved. (WEB-874)Í
+
+.. More info about this?
+
+
+**************************
+edX Documentation
+**************************
+
+The following documentation is available:
+
+* `Building and Running an edX Course`_ 
+
+  Click **Help** in the upper-right corner of any page in the edX Studio
+  user interface to access relevant sections in this guide. You can also
+  download the entire guide as a PDF.
+
+  Recent changes include: 
+
+  * A set of `example messages to students <http://edx-partner-course-staff.readthedocs.org/en/latest/releasing_course/course_launching.html#example-messages-to-students>`_ is now available in the `Course Launching Activities`_ chapter.
+
+  * A `Grade Ranges and Certificates`_ section is now available in the `Establishing a Grading Policy`_ chapter.
+       
+* `edX Research Guide`_
+
+* `edX Developer's Guide`_
+
+* `edX XBlock Documentation`_
+
+* `Installing, Configuring, and Running the edX Platform`_  
+
+**************************
+Other edX Resources
+**************************
+
+You can access the `edX Status`_ page to get an up-to-date status for all
+services on edx.org and edX Edge. The page also includes the Twitter feed for
+@edXstatus, which the edX Operations team uses to post updates.
+
+You can access the public `edX roadmap`_ for details about the currently
+planned product direction.
+
+.. include:: links.rst
