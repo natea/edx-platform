@@ -145,12 +145,7 @@ class DiscussionTabSingleThreadTest(UniqueCourseTest, DiscussionResponsePaginati
         response_id = "test_response_{}".format(uuid4().hex)
         comment_id = "test_comment_{}".format(uuid4().hex)
         thread_fixture = SingleThreadViewFixture(
-            Thread(
-                id=thread_id,
-                commentable_id=self.discussion_id,
-                thread_type="question",
-                endorsed_response_count=1
-            )
+            Thread(id=thread_id, commentable_id=self.discussion_id, thread_type="question")
         )
         thread_fixture.addResponse(
             Response(id=response_id, endorsed=True),
