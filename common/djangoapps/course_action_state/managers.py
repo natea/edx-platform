@@ -1,4 +1,3 @@
-# pylint: disable=no-member
 """
 Model Managers for Course Actions
 """
@@ -10,8 +9,6 @@ class CourseActionStateManager(models.Manager):
     An abstract Model Manager class for Course Action State models.
     This abstract class expects child classes to define the ACTION (string) field.
     """
-    # pylint: disable=no-member
-
     class Meta:
         """Abstract manager class, with subclasses defining the ACTION (string) field."""
         abstract = True
@@ -21,11 +18,13 @@ class CourseActionStateManager(models.Manager):
         Finds and returns all entries for this action and the given field names-and-values in kwargs.
         The exclude_args dict allows excluding entries with the field names-and-values in exclude_args.
         """
-        return self.filter(action=self.ACTION, **kwargs).exclude(**(exclude_args or {}))
+        return self.filter(action=self.ACTION, **kwargs).exclude(**(exclude_args or {}))  # pylint: disable=no-member
 
     def find_first(self, exclude_args=None, **kwargs):
         """
         Returns the first entry for the this action and the given fields in kwargs, if found.
+        The exclude_args dict allows excluding entries with the field names-and-values in exclude_args.
+
         Raises ItemNotFoundError if more than 1 entry is found.
 
         There may or may not be greater than one entry, depending on the usage pattern for this Action.
@@ -33,11 +32,11 @@ class CourseActionStateManager(models.Manager):
         objects = self.find_all(exclude_args=exclude_args, **kwargs)
         if len(objects) == 0:
             raise CourseActionStateItemNotFoundError(
-                message="No entry found for action {action} with filter {filter}, excluding {exclude}",
-                action=self.ACTION,
-                filter=kwargs,
-                exclude=exclude_args,
-            )
+                "No entry found for action {action} with filter {filter}, excluding {exclude}".format(
+                    action=self.ACTION,  # pylint: disable=no-member
+                    filter=kwargs,
+                    exclude=exclude_args,
+                ))
         else:
             return objects[0]
 
@@ -65,17 +64,17 @@ class CourseActionUIStateManager(CourseActionStateManager):
         Raises CourseActionStateException if allow_not_found is False and an entry for the given course
             for this Action doesn't exist.
         """
-        state_object, created = self.get_or_create(course_key=course_key, action=self.ACTION)
+        state_object, created = self.get_or_create(course_key=course_key, action=self.ACTION)  # pylint: disable=no-member
 
         if created:
             if allow_not_found:
                 state_object.created_user = user
             else:
                 raise CourseActionStateItemNotFoundError(
-                    message="Cannot update non-existent entry for course_key {course_key} and action {action}",
-                    action=self.ACTION,
-                    course_key=course_key,
-                )
+                    "Cannot update non-existent entry for course_key {course_key} and action {action}".format(
+                        action=self.ACTION,  # pylint: disable=no-member
+                        course_key=course_key,
+                    ))
 
         # some state changes may not be user-initiated so override the user field only when provided
         if user:
@@ -147,8 +146,5 @@ class CourseRerunUIStateManager(CourseActionUIStateManager):
 
 
 class CourseActionStateItemNotFoundError(Exception):
-    """
-    An exception class for errors specific to Course Action states.
-    """
-    def __init__(self, message, action, **kwargs):
-        super(CourseActionStateItemNotFoundError, self).__init__(message.format(action=action, **kwargs))
+    """An exception class for errors specific to Course Action states."""
+    pass
