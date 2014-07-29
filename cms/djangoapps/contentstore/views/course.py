@@ -56,7 +56,7 @@ from opaque_keys.edx.keys import CourseKey
 from course_creators.views import get_course_creator_status, add_user_with_status_unrequested
 from contentstore import utils
 from student.roles import (
-    CourseInstructorRole, CourseStaffRole, CourseCreatorRole, GlobalStaff, CourseRole, UserBasedRole
+    CourseInstructorRole, CourseStaffRole, CourseCreatorRole, GlobalStaff, UserBasedRole
 )
 from student import auth
 from course_action_state.models import CourseRerunState, CourseRerunUIStateManager
@@ -405,7 +405,10 @@ def _rerun_course(request, destination_course_key, fields):
     Returns the URL for the course listing page.
     """
     source_course_key = CourseKey.from_string(request.json.get('source_course_key'))
-    # TODO - verify request.user has access to source_course_key
+
+    # verify user has access to the original course
+    if not has_course_access(request.user, source_course_key):
+        raise PermissionDenied()
 
     # Make sure user has instructor and staff access to the destination course
     # so the user can see the updated status for that course
