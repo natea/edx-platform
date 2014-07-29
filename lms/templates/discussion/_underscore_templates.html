@@ -268,12 +268,12 @@
   <li data-id="${'<%- id %>'}" class="forum-nav-thread${'<% if (typeof(read) != "undefined" && !read) { %> is-unread<% } %>'}">
     <a href="#" class="forum-nav-thread-link">
       <div class="forum-nav-thread-wrapper-0">
-        ${"""<%
+        ${u"""<%
         var icon_class, sr_text;
         if (thread_type == "discussion") {{
             icon_class = "icon-comments";
             sr_text = "{discussion}";
-        }} else if (endorsed_response_count > 0) {{
+        }} else if (endorsed) {{
             icon_class = "icon-ok";
             sr_text = "{answered_question}";
         }} else {{

@@ -12,6 +12,14 @@ if Backbone?
         "keydown .discussion-flag-abuse":
           (event) -> DiscussionUtil.activateOnSpace(event, @toggleFlagAbuse)
 
+    attrRenderer: $.extend({}, DiscussionContentView.prototype.attrRenderer, {
+      endorsed: (endorsed) ->
+        $endorseButton = @$(".action-endorse")
+        $endorseButton.toggleClass("is-clickable", @model.canBeEndorsed())
+        $endorseButton.toggleClass("is-endorsed", endorsed)
+        $endorseButton.toggle(endorsed || @model.canBeEndorsed())
+    })
+
     $: (selector) ->
         @$el.find(selector)
 
@@ -69,11 +77,6 @@ if Backbone?
       @model.set(
         "endorsed": new_endorsed
         "endorsement": if new_endorsed then endorsement else null
-      )
-      thread = @model.get("thread")
-      thread.set(
-        "endorsed_response_count",
-        thread.get("endorsed_response_count") + (if new_endorsed then 1 else -1)
       )
       @trigger "comment:endorse", not endorsed
       DiscussionUtil.safeAjax

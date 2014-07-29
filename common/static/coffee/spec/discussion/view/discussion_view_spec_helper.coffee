@@ -6,7 +6,6 @@ class @DiscussionViewSpecHelper
           thread_type: "discussion",
           pinned: false,
           endorsed: false,
-          endorsed_response_count: 0,
           votes: {up_count: '0'},
           unread_comments_count: 0,
           comments_count: 0,

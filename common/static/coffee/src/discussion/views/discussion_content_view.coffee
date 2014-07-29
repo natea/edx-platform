@@ -8,12 +8,6 @@ if Backbone?
         (event) -> DiscussionUtil.activateOnSpace(event, @toggleFlagAbuse)
   
     attrRenderer:
-      endorsed: (endorsed) ->
-        $endorseButton = @$(".action-endorse")
-        $endorseButton.toggleClass("is-clickable", @model.canBeEndorsed())
-        $endorseButton.toggleClass("is-endorsed", endorsed)
-        $endorseButton.toggle(endorsed || @model.canBeEndorsed())
-
       closed: (closed) ->
         return if not @$(".action-openclose").length
         return if not @$(".post-status-closed").length
