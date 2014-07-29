@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 """
 Model Managers for Course Actions
 """
@@ -12,6 +13,7 @@ class CourseActionStateManager(models.Manager):
     # pylint: disable=no-member
 
     class Meta:
+        """Abstract manager class, with subclasses defining the ACTION (string) field."""
         abstract = True
 
     def find_all(self, exclude_args=None, **kwargs):
@@ -39,11 +41,11 @@ class CourseActionStateManager(models.Manager):
         else:
             return objects[0]
 
-    def delete(self, id):
+    def delete(self, entry_id):
         """
         Deletes the entry with given id.
         """
-        self.filter(id=id).delete()
+        self.filter(id=entry_id).delete()
 
 
 class CourseActionUIStateManager(CourseActionStateManager):
@@ -91,11 +93,11 @@ class CourseActionUIStateManager(CourseActionStateManager):
         state_object.save()
         return state_object
 
-    def update_should_display(self, id, user, should_display):
+    def update_should_display(self, entry_id, user, should_display):
         """
         Updates the should_display field with the given value for the entry for the given id.
         """
-        self.update(id=id, updated_user=user, should_display=should_display)
+        self.update(id=entry_id, updated_user=user, should_display=should_display)
 
 
 class CourseRerunUIStateManager(CourseActionUIStateManager):

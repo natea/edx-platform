@@ -1,4 +1,5 @@
 """
+Tests specific to the CourseRerunState Model and Manager.
 """
 
 from django.test import TestCase
@@ -30,24 +31,24 @@ class TestCourseRerunStateManager(TestCase):
         Gets the rerun state object for self.course_key and verifies that the values
         of its fields equal self.expected_rerun_state.
         """
-        rerun = CourseRerunState.objects.find_first(course_key=self.course_key)
-        for key, value in self.expected_rerun_state.iteritems():
-            self.assertEquals(getattr(rerun, key), value)
-        return rerun
+        found_rerun = CourseRerunState.objects.find_first(course_key=self.course_key)
+        found_rerun_state = {key: getattr(found_rerun, key) for key in self.expected_rerun_state}
+        self.assertDictEqual(found_rerun_state, self.expected_rerun_state)
+        return found_rerun
 
     def dismiss_ui_and_verify(self, rerun):
         """
         Updates the should_display field of the rerun state object for self.course_key
         and verifies its new state.
         """
-        user_who_dismisses_UI = UserFactory()
+        user_who_dismisses_ui = UserFactory()
         CourseRerunState.objects.update_should_display(
-            id=rerun.id,
-            user=user_who_dismisses_UI,
+            entry_id=rerun.id,
+            user=user_who_dismisses_ui,
             should_display=False,
         )
         self.expected_rerun_state.update({
-            'updated_user': user_who_dismisses_UI,
+            'updated_user': user_who_dismisses_ui,
             'should_display': False,
         })
         self.verify_rerun_state()

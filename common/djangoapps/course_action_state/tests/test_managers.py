@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name, attribute-defined-outside-init
 """
 Tests for basic common operations related to Course Action State managers
 """
@@ -11,6 +12,7 @@ from course_action_state.managers import CourseActionStateItemNotFoundError
 
 # Sequence of Action models to be tested with ddt.
 COURSE_ACTION_STATES = (CourseRerunState, )
+
 
 class TestCourseActionStateManagerBase(TestCase):
     """
@@ -111,6 +113,7 @@ class TestCourseActionUIStateManager(TestCourseActionStateManagerBase):
             )
 
     def assertCourseActionStatesEqual(self, expected, found):
+        """Asserts that the set of course keys in the expected state equal those that are found"""
         self.assertSetEqual(
             set(course_action_state.course_key for course_action_state in expected),
             set(course_action_state.course_key for course_action_state in found))

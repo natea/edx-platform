@@ -1,7 +1,18 @@
+"""
+Models for course action state
+
+If you make changes to this model, be sure to create an appropriate migration
+file and check it in at the same time as your model changes. To do that,
+
+1. Go to the edx-platform dir
+2. ./manage.py cms schemamigration course_action_state --auto description_of_your_change
+3. It adds the migration file to edx-platform/common/djangoapps/course_action_state/migrations/
+
+"""
 from django.contrib.auth.models import User
 from django.db import models
 from xmodule_django.models import CourseKeyField
-from managers import CourseActionStateManager, CourseRerunUIStateManager
+from course_action_state.managers import CourseActionStateManager, CourseRerunUIStateManager
 
 
 class CourseActionState(models.Model):
@@ -11,10 +22,12 @@ class CourseActionState(models.Model):
     """
 
     class Meta:
-        # For performance reasons, we disable "concrete inheritance", by making the Model base class abstract.
-        # With the "abstract base class" inheritance model, tables are only created for derived models, not for
-        # the parent classes.  This way, we don't have extra overhead of extra tables and joins that would
-        # otherwise happen with the multi-table inheritance model.
+        """
+        For performance reasons, we disable "concrete inheritance", by making the Model base class abstract.
+        With the "abstract base class" inheritance model, tables are only created for derived models, not for
+        the parent classes.  This way, we don't have extra overhead of extra tables and joins that would
+        otherwise happen with the multi-table inheritance model.
+        """
         abstract = True
 
     # FIELDS
@@ -65,7 +78,9 @@ class CourseActionUIState(CourseActionState):
     An abstract django model that is a sub-class of CourseActionState with additional fields related to UI.
     """
     class Meta:
-        # See comment in CourseActionState on disabling "concrete inheritance".
+        """
+        See comment in CourseActionState on disabling "concrete inheritance".
+        """
         abstract = True
 
     # FIELDS
@@ -83,9 +98,11 @@ class CourseRerunState(CourseActionUIState):
     A concrete django model for maintaining state specifically for the Action Course Reruns.
     """
     class Meta:
-        # set the (destination) course_key field to be unique for the rerun action
-        # Although multiple reruns can be in progress simultaneously for a particular source course_key,
-        # only a single rerun action can be in progress for the destination course_key.
+        """
+        Set the (destination) course_key field to be unique for the rerun action
+        Although multiple reruns can be in progress simultaneously for a particular source course_key,
+        only a single rerun action can be in progress for the destination course_key.
+        """
         unique_together = ("course_key", "action")
 
     # FIELDS
