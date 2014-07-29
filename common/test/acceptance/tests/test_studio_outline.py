@@ -157,6 +157,7 @@ class EditingSectionsTest(CourseOutlineTest):
         """
         progress_page = ProgressPage(self.browser, self.course_id)
         progress_page.visit()
+        progress_page.wait_for_page()
         self.assertEqual(u'Practice', progress_page.grading_formats[0])
         self.course_outline_page.visit()
 
