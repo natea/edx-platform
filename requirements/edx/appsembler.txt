@@ -1,0 +1,1 @@
+-e git+https://github.com/hastexo/markdown-xblock.git@master#egg=markdown-xblock
